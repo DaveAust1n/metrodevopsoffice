@@ -1,13 +1,4 @@
 import { useState, useEffect, useRef, FormEvent } from 'react';
-import emailjs from '@emailjs/browser';
-
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-if (EMAILJS_PUBLIC_KEY) {
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-}
 import {
   Menu, X, ChevronDown, ExternalLink, Phone,
   Globe, Smartphone, ShoppingCart, RefreshCw, Wrench, Search,
@@ -772,23 +763,35 @@ function Contact() {
 
     setIsSubmitting(true);
 
-    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      setSubmitError('Email service is not configured. Please contact the administrator.');
-      setIsSubmitting(false);
-      return;
-    }
-
-    const templateParams = {
-      name: formState.name,
-      business_name: formState.businessName || 'Not provided',
-      email: formState.email,
-      phone: formState.phone,
-      project_type: formState.projectType,
-      message: formState.message,
-    };
-
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      const formData = new FormData();
+      formData.append('name', formState.name);
+      formData.append('business_name', formState.businessName || 'Not provided');
+      formData.append('email', formState.email);
+      formData.append('phone', formState.phone);
+      formData.append('project_type', formState.projectType);
+      formData.append('message', formState.message);
+      formData.append('_subject', `New Project Inquiry from ${formState.name}${formState.businessName ? ` (${formState.businessName})` : ''}`);
+      formData.append('_template', 'table');
+      formData.append('_captcha', 'false');
+
+      const response = await fetch('https://formsubmit.co/ajax/igweonyiachisom1@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+        },
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to send message');
+      }
+
+      const result = await response.json();
+
+      if (result.success === 'false' || result.success === false) {
+        throw new Error(result.message || 'Failed to send message');
+      }
 
       setIsSubmitting(false);
       setIsSubmitted(true);
@@ -801,7 +804,7 @@ function Contact() {
         message: '',
       });
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('Form submission error:', error);
       setIsSubmitting(false);
       setSubmitError('Something went wrong while sending your message. Please try again or contact us directly via WhatsApp.');
     }
