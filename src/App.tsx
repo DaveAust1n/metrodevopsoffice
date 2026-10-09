@@ -173,15 +173,15 @@ function Hero() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Websites That Don't Just
+            Websites That Help
             <br />
-            <span className="gradient-text">Look Good</span>—They
+            <span className="gradient-text">Nigerian Businesses</span>
             <br />
-            <span>Grow Businesses.</span>
+            Grow Online.
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            MetroDEVOPS builds modern websites, business landing pages, portfolios, and web applications that help brands attract customers and stand out online.
+            MetroDEVOPS designs and builds fast, mobile-friendly business websites, online stores, landing pages, and web applications for Nigerian businesses, startups, and creators.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
@@ -296,20 +296,20 @@ function About() {
 
             <div className="grid grid-cols-2 gap-6">
               <div className="glass rounded-xl p-4 hover-glow transition-all">
-                <div className="text-3xl font-bold gradient-text mb-1">50+</div>
-                <div className="text-sm text-gray-400">Projects Delivered</div>
+                <div className="text-xl font-bold gradient-text mb-1">Business-first</div>
+                <div className="text-sm text-gray-400">Built around your goals</div>
               </div>
               <div className="glass rounded-xl p-4 hover-glow transition-all">
-                <div className="text-3xl font-bold gradient-text mb-1">40+</div>
-                <div className="text-sm text-gray-400">Happy Clients</div>
+                <div className="text-xl font-bold gradient-text mb-1">Mobile-ready</div>
+                <div className="text-sm text-gray-400">Designed for every screen</div>
               </div>
               <div className="glass rounded-xl p-4 hover-glow transition-all">
-                <div className="text-3xl font-bold gradient-text mb-1">3+</div>
-                <div className="text-sm text-gray-400">Years Experience</div>
+                <div className="text-xl font-bold gradient-text mb-1">SEO-conscious</div>
+                <div className="text-sm text-gray-400">Strong technical foundations</div>
               </div>
               <div className="glass rounded-xl p-4 hover-glow transition-all">
-                <div className="text-3xl font-bold gradient-text mb-1">100%</div>
-                <div className="text-sm text-gray-400">Client Satisfaction</div>
+                <div className="text-xl font-bold gradient-text mb-1">Direct support</div>
+                <div className="text-sm text-gray-400">Clear communication</div>
               </div>
             </div>
           </div>
@@ -594,69 +594,56 @@ function Process() {
   );
 }
 
-// Testimonials Section
-function Testimonials() {
+// What to Expect Section
+function WhatToExpect() {
   const { ref, inView } = useInView();
 
-  const testimonials = [
+  const expectations = [
     {
-      name: 'Richard Okafor',
-      initials: 'RO',
-      role: 'Founder',
-      company: 'RickyLens Photography',
-      content: 'Working with MetroDEVOPS completely changed how people see my brand online. The website is clean, fast, and showcases my photography beautifully. I\'ve received several enquiries from people who first discovered my work through the website. The process was smooth from start to finish, and I\'d gladly recommend MetroDEVOPS to anyone looking for a professional website.',
+      icon: Target,
+      title: 'A clear project scope',
+      content: 'We start by understanding your business, audience, goals, and the features your website actually needs.',
     },
     {
-      name: 'Samuel Adeyemi',
-      initials: 'SA',
-      role: 'Founder & CEO',
-      company: 'Sergio Vault',
-      content: 'MetroDEVOPS delivered a modern and professional platform that matched the vision I had for Sergio Vault. Communication was excellent, attention to detail was impressive, and every feature worked exactly as expected. The final result exceeded my expectations, and I look forward to working together again.',
+      icon: Smartphone,
+      title: 'A mobile-friendly experience',
+      content: 'Your website is planned to work across phones, tablets, and desktop screens so customers can browse comfortably.',
     },
     {
-      name: 'David Eze',
-      initials: 'DE',
-      role: 'Owner',
-      company: 'BeautyDaves Cosmetics',
-      content: 'I wanted a website that would make my cosmetics brand look trustworthy and premium, and MetroDEVOPS delivered exactly that. The design is elegant, responsive, and easy for customers to navigate. Since launching the website, my business has gained a stronger online presence and more customer enquiries.',
+      icon: Search,
+      title: 'Search-friendly foundations',
+      content: 'We pay attention to page titles, useful content, crawlable links, performance, and other technical SEO basics.',
     },
   ];
 
   return (
-    <section id="testimonials" className="py-20 lg:py-32 relative bg-dark-800/50">
+    <section id="what-to-expect" className="py-20 lg:py-32 relative bg-dark-800/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
           <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <MessageCircle className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">Testimonials</span>
+            <CheckCircle className="w-4 h-4 text-accent-blue" />
+            <span className="text-sm text-gray-300">What to Expect</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-            What Our <span className="gradient-text">Clients Say</span>
+            Built Around <span className="gradient-text">Your Business</span>
           </h2>
+          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+            A practical website project should do more than look good. It should help customers understand your offer and take the next step.
+          </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8">
-          {testimonials.map((item, index) => (
+          {expectations.map((item, index) => (
             <div
-              key={item.name}
-              className={`glass rounded-2xl p-8 hover-glow transition-all duration-500 group hover:scale-[1.02] ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${index * 150}ms` }}
+              key={item.title}
+              className={`glass rounded-2xl p-8 transition-all duration-500 hover-glow ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
+              style={{ transitionDelay: `${index * 120}ms` }}
             >
-              <div className="flex gap-1 mb-4">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-yellow-400" />
-                ))}
+              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center mb-6">
+                <item.icon className="w-7 h-7 text-white" />
               </div>
-              <p className="text-gray-300 mb-6 italic leading-relaxed">"{item.content}"</p>
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center text-white font-bold text-lg group-hover:scale-110 transition-transform shadow-lg shadow-accent-blue/20">
-                  {item.initials}
-                </div>
-                <div>
-                  <div className="font-semibold text-white">{item.name}</div>
-                  <div className="text-sm text-gray-400">{item.role}, {item.company}</div>
-                </div>
-              </div>
+              <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
+              <p className="text-gray-400 leading-relaxed">{item.content}</p>
             </div>
           ))}
         </div>
@@ -825,7 +812,6 @@ function Contact() {
   const contactInfo = [
     { icon: Phone, label: 'WhatsApp', value: '09163197774', href: 'https://wa.me/2349163197774' },
     { icon: Instagram, label: 'Instagram', value: '@m6tr_0', href: 'https://instagram.com/m6tr_0' },
-    { icon: Linkedin, label: 'LinkedIn', value: 'Igweonyia Chisom', href: '#' },
     { icon: Music, label: 'TikTok', value: '@metrothedeveloper', href: 'https://tiktok.com/@metrothedeveloper' },
   ];
 
@@ -1069,10 +1055,17 @@ function Footer() {
               Building Digital Experiences That Matter. We create modern, high-performing websites that help businesses succeed online.
             </p>
             <div className="flex gap-4">
-              {[Instagram, Linkedin, Github, Music].map((Icon, index) => (
+              {[
+                { Icon: Instagram, label: 'Instagram', href: 'https://instagram.com/m6tr_0' },
+                { Icon: Github, label: 'GitHub', href: 'https://github.com/DaveAust1n' },
+                { Icon: Music, label: 'TikTok', href: 'https://tiktok.com/@metrothedeveloper' },
+              ].map(({ Icon, label, href }) => (
                 <a
-                  key={index}
-                  href="#"
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
                   className="w-10 h-10 rounded-lg bg-dark-700 flex items-center justify-center hover:bg-gradient-to-br hover:from-accent-blue hover:to-accent-purple transition-all duration-300 group"
                 >
                   <Icon className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
@@ -1154,67 +1147,24 @@ function ScrollToTop() {
   );
 }
 
-// Loading Screen
-function LoadingScreen({ onComplete }: { onComplete: () => void }) {
-  const [progress, setProgress] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress(prev => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setTimeout(onComplete, 300);
-          return 100;
-        }
-        return prev + Math.random() * 15;
-      });
-    }, 100);
-    return () => clearInterval(interval);
-  }, [onComplete]);
-
-  return (
-    <div className="fixed inset-0 z-[100] bg-dark-900 flex flex-col items-center justify-center">
-      <div className="mb-8">
-        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center animate-pulse">
-          <Code className="w-8 h-8 text-white" />
-        </div>
-      </div>
-      <div className="w-48 h-1 bg-dark-700 rounded-full overflow-hidden">
-        <div
-          className="h-full bg-gradient-to-r from-accent-blue to-accent-purple transition-all duration-300 ease-out"
-          style={{ width: `${Math.min(progress, 100)}%` }}
-        />
-      </div>
-      <p className="mt-4 text-gray-400 text-sm">Loading amazing content...</p>
-    </div>
-  );
-}
-
 // Main App
 function App() {
-  const [isLoading, setIsLoading] = useState(true);
-
   return (
     <>
-      {isLoading && <LoadingScreen onComplete={() => setIsLoading(false)} />}
-      {!isLoading && (
-        <>
-          <Navbar />
-          <main>
-            <Hero />
-            <About />
-            <Services />
-            <Projects />
-            <WhyChooseUs />
-            <Process />
-            <Testimonials />
-            <Technologies />
-            <Contact />
-          </main>
-          <Footer />
-          <ScrollToTop />
-        </>
-      )}
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <Services />
+        <Projects />
+        <WhyChooseUs />
+        <Process />
+        <WhatToExpect />
+        <Technologies />
+        <Contact />
+      </main>
+      <Footer />
+      <ScrollToTop />
     </>
   );
 }
