@@ -12,7 +12,7 @@ import {
   Menu, X, ChevronDown, ExternalLink, Phone,
   Globe, Smartphone, ShoppingCart, RefreshCw, Wrench, Search,
   Monitor, Palette, Zap, Shield, DollarSign, Code, Headphones,
-  Camera, Sparkles, MessageCircle, Instagram, Linkedin,
+  Camera, Sparkles, Instagram,
   Github, ArrowUp, Send, CheckCircle, ArrowRight, Star, Clock,
   Users, Target, Lightbulb, Rocket, TestTube, HelpCircle, Music,
   AlertCircle
