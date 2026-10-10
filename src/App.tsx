@@ -61,8 +61,8 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           <a href="#home" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center group-hover:scale-110 transition-transform">
-              <Code className="w-5 h-5 text-white" />
+            <div className="w-10 h-10 rounded-md bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center group-hover:scale-105 transition-transform">
+              <span className="font-display font-extrabold text-sm text-white tracking-tight">M.</span>
             </div>
             <span className="font-display font-bold text-xl">
               Metro<span className="gradient-text">DEVOPS</span>
@@ -160,19 +160,19 @@ function Hero() {
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-8 animate-fade-in">
             <Sparkles className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">Premium Web Development Agency</span>
+            <span className="text-sm text-gray-300">Technology partner for African businesses</span>
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Websites That Help
+            Build Forward.
             <br />
-            <span className="gradient-text">Nigerian Businesses</span>
+            <span className="gradient-text">African Business.</span>
             <br />
-            Grow Online.
+            Real Progress.
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            MetroDEVOPS designs and builds fast, mobile-friendly business websites, online stores, landing pages, and web applications for Nigerian businesses, startups, and creators.
+            We help ambitious African businesses build stronger digital foundations, streamline operations, and compete with confidence.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
@@ -187,7 +187,7 @@ function Hero() {
               href="#contact"
               className="px-8 py-4 glass rounded-xl font-semibold text-lg hover:bg-white/10 transition-all border border-white/20 flex items-center gap-2"
             >
-              Let's Build Your Website
+              Let's Build Your Next Step
             </a>
           </div>
         </div>
@@ -274,15 +274,15 @@ function About() {
             </h2>
 
             <p className="text-gray-400 text-lg mb-6 leading-relaxed">
-              At MetroDEVOPS, we create clean, modern, and high-performing websites tailored for businesses, creators, startups, and personal brands.
+              MetroDEVOPS helps businesses turn technology into a practical advantage — from a credible digital presence to the systems that support their next stage of growth.
             </p>
 
             <p className="text-gray-500 mb-8 leading-relaxed">
-              Whether you need a business website, portfolio, landing page, or web application, our goal is simple: deliver websites that are fast, responsive, visually appealing, and built to convert visitors into customers.
+              We build digital experiences and business tools around your goals, your customers, and the way your business actually works.
             </p>
 
             <p className="text-gray-500 mb-8 leading-relaxed">
-              Every project is designed with user experience, performance, and scalability in mind.
+              Every project is grounded in clear communication, reliable delivery, and room to grow.
             </p>
 
             <div className="grid grid-cols-2 gap-6">
@@ -1050,15 +1050,15 @@ function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <a href="#home" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center">
-                <Code className="w-5 h-5 text-white" />
+              <div className="w-10 h-10 rounded-md bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center">
+                <span className="font-display font-extrabold text-sm text-white tracking-tight">M.</span>
               </div>
               <span className="font-display font-bold text-xl">
                 Metro<span className="gradient-text">DEVOPS</span>
               </span>
             </a>
             <p className="text-gray-400 mb-6 max-w-md">
-              Building Digital Experiences That Matter. We create modern, high-performing websites that help businesses succeed online.
+              Technology that moves African businesses forward. We build digital foundations and practical business systems for long-term growth.
             </p>
             <div className="flex gap-4">
               {[
