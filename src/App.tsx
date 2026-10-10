@@ -8,6 +8,7 @@ import {
   Users, Target, Lightbulb, Rocket, TestTube, HelpCircle, Music,
   AlertCircle
 } from 'lucide-react';
+import { loadWebsiteContent } from './lib/websiteContent';
 
 // Hook for intersection observer animations
 function useInView(threshold = 0.1) {
@@ -313,7 +314,7 @@ function About() {
 function Services() {
   const { ref, inView } = useInView();
 
-  const services = [
+  const defaultServices = [
     { icon: Globe, title: 'Business Websites', desc: 'Professional websites that establish your brand and drive growth' },
     { icon: Camera, title: 'Portfolio Websites', desc: 'Showcase your work with stunning portfolio designs' },
     { icon: Target, title: 'Landing Pages', desc: 'High-converting landing pages for campaigns and products' },
@@ -325,6 +326,36 @@ function Services() {
     { icon: Monitor, title: 'Responsive Design', desc: 'Beautiful experiences on every device and screen' },
     { icon: Palette, title: 'UI/UX Implementation', desc: 'Pixel-perfect designs that engage and convert' },
   ];
+
+  const [hubServices, setHubServices] = useState<Array<{ name: string; description: string | null }>>([]);
+
+  useEffect(() => {
+    let active = true;
+    loadWebsiteContent()
+      .then((data) => {
+        if (active) {
+          setHubServices(data.services.map((service: { name: string; description: string | null }) => ({
+            name: service.name,
+            description: service.description,
+          })));
+        }
+      })
+      .catch((error) => {
+        console.warn('MetroDEVOPS Hub content was not loaded; using the portfolio defaults.', error);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const services = hubServices.length > 0
+    ? hubServices.map((service) => ({
+        icon: Wrench,
+        title: service.name,
+        desc: service.description || 'Learn more about this MetroDEVOPS service.',
+      }))
+    : defaultServices;
 
   return (
     <section id="services" className="py-20 lg:py-32 relative bg-dark-800/50">
