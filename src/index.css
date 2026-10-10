@@ -14,7 +14,7 @@
 
 html { scroll-behavior: smooth; background: var(--metro-ivory); }
 body {
-  font-family: 'Inter', system-ui, sans-serif;
+  font-family: 'DM Sans', Inter, system-ui, sans-serif;
   background: var(--metro-ivory);
   color: var(--metro-graphite);
 }
