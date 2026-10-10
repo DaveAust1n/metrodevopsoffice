@@ -1,13 +1,4 @@
 import { useState, useEffect, useRef, FormEvent } from 'react';
-import emailjs from '@emailjs/browser';
-
-const EMAILJS_SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
-const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
-const EMAILJS_PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
-
-if (EMAILJS_PUBLIC_KEY) {
-  emailjs.init({ publicKey: EMAILJS_PUBLIC_KEY });
-}
 import {
   Menu, X, ChevronDown, ExternalLink, Phone,
   Globe, Smartphone, ShoppingCart, RefreshCw, Wrench, Search,
@@ -759,12 +750,6 @@ function Contact() {
 
     setIsSubmitting(true);
 
-    if (!EMAILJS_SERVICE_ID || !EMAILJS_TEMPLATE_ID || !EMAILJS_PUBLIC_KEY) {
-      setSubmitError('Email service is not configured. Please contact the administrator.');
-      setIsSubmitting(false);
-      return;
-    }
-
     const templateParams = {
       name: formState.name,
       business_name: formState.businessName || 'Not provided',
@@ -772,12 +757,25 @@ function Contact() {
       phone: formState.phone,
       project_type: formState.projectType,
       message: formState.message,
+      _subject: `New MetroDEVOPS project enquiry from ${formState.name}`,
+      _template: 'table',
     };
 
     try {
-      await emailjs.send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, templateParams);
+      const response = await fetch('https://formsubmit.co/ajax/igweonyiachisom1@gmail.com', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify(templateParams),
+      });
 
-      setIsSubmitting(false);
+      const result = await response.json();
+      if (!response.ok || result.success !== 'true') {
+        throw new Error(result.message || 'The email service did not accept the message.');
+      }
+
       setIsSubmitted(true);
       setFormState({
         name: '',
@@ -788,9 +786,10 @@ function Contact() {
         message: '',
       });
     } catch (error) {
-      console.error('EmailJS error:', error);
+      console.error('Contact form submission error:', error);
+      setSubmitError('Your message could not be sent right now. Please try again or contact us directly via WhatsApp.');
+    } finally {
       setIsSubmitting(false);
-      setSubmitError('Something went wrong while sending your message. Please try again or contact us directly via WhatsApp.');
     }
   };
 
