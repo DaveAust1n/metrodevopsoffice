@@ -83,7 +83,7 @@ function Navbar() {
             ))}
             <a
               href="#contact"
-              className="px-5 py-2.5 bg-gradient-to-r from-accent-blue to-accent-purple rounded-lg font-medium text-sm hover:opacity-90 transition-opacity shadow-lg shadow-accent-blue/20"
+              className="px-5 py-2.5 bg-[#17483B] text-[#F1EDE2] rounded-lg font-semibold text-sm hover:bg-[#252D29] transition-colors shadow-md shadow-[#17483B]/15"
             >
               Get Started
             </a>
@@ -116,7 +116,7 @@ function Navbar() {
               <a
                 href="#contact"
                 onClick={() => setIsOpen(false)}
-                className="px-5 py-2.5 bg-gradient-to-r from-accent-blue to-accent-purple rounded-lg font-medium text-sm text-center"
+                className="px-5 py-2.5 bg-[#17483B] text-[#F1EDE2] rounded-lg font-semibold text-sm text-center hover:bg-[#252D29] transition-colors"
               >
                 Get Started
               </a>
@@ -178,14 +178,14 @@ function Hero() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
             <a
               href="#projects"
-              className="group px-8 py-4 bg-gradient-to-r from-accent-blue to-accent-purple rounded-xl font-semibold text-lg hover:opacity-90 transition-all shadow-lg shadow-accent-blue/30 hover:shadow-accent-purple/30 flex items-center gap-2"
+              className="group px-8 py-4 bg-[#17483B] text-[#F1EDE2] rounded-xl font-semibold text-lg hover:bg-[#252D29] transition-colors shadow-md shadow-[#17483B]/15 flex items-center gap-2"
             >
               View My Work
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </a>
             <a
               href="#contact"
-              className="px-8 py-4 glass rounded-xl font-semibold text-lg hover:bg-white/10 transition-all border border-white/20 flex items-center gap-2"
+              className="px-8 py-4 bg-[#F1EDE2] text-[#17483B] rounded-xl font-semibold text-lg hover:bg-[#E4DFD3] transition-colors border border-[#17483B]/30 flex items-center gap-2"
             >
               Let's Build Your Next Step
             </a>
@@ -842,7 +842,7 @@ function Contact() {
                 <p className="text-gray-400 mb-6 leading-relaxed">Your message has been sent successfully. I'll get back to you soon.</p>
                 <button
                   onClick={() => setIsSubmitted(false)}
-                  className="px-6 py-3 bg-gradient-to-r from-accent-blue to-accent-purple rounded-lg font-medium hover:opacity-90 transition-opacity"
+                  className="px-6 py-3 bg-[#17483B] text-[#F1EDE2] rounded-lg font-semibold hover:bg-[#252D29] transition-colors"
                 >
                   Send Another Message
                 </button>
@@ -857,7 +857,7 @@ function Contact() {
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button
                     onClick={handleTryAgain}
-                    className="px-6 py-3 bg-gradient-to-r from-accent-blue to-accent-purple rounded-lg font-medium hover:opacity-90 transition-opacity"
+                    className="px-6 py-3 bg-[#17483B] text-[#F1EDE2] rounded-lg font-semibold hover:bg-[#252D29] transition-colors"
                   >
                     Try Again
                   </button>
@@ -961,7 +961,7 @@ function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full py-4 bg-gradient-to-r from-accent-blue to-accent-purple rounded-xl font-semibold text-lg hover:opacity-90 transition-opacity shadow-lg shadow-accent-blue/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full py-4 bg-[#17483B] text-[#F1EDE2] rounded-xl font-semibold text-lg hover:bg-[#252D29] transition-colors shadow-md shadow-[#17483B]/15 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {isSubmitting ? (
                     <>
@@ -1145,7 +1145,7 @@ function ScrollToTop() {
   return (
     <button
       onClick={scrollToTop}
-      className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-gradient-to-r from-accent-blue to-accent-purple flex items-center justify-center shadow-lg shadow-accent-blue/30 hover:scale-110 transition-transform"
+      className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-[#17483B] text-[#F1EDE2] flex items-center justify-center shadow-md shadow-[#17483B]/20 hover:bg-[#252D29] hover:scale-110 transition-all"
       aria-label="Scroll to top"
     >
       <ArrowUp className="w-5 h-5 text-white" />
