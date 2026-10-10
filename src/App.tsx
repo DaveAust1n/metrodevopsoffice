@@ -1008,10 +1008,17 @@ function Contact() {
             <div className="glass rounded-2xl p-8">
               <h3 className="text-xl font-bold text-white mb-4">Connect With Us</h3>
               <div className="flex gap-4">
-                {[Instagram, Linkedin, Github, Music].map((Icon, index) => (
+                {[
+                  { Icon: Instagram, label: 'Instagram', href: 'https://instagram.com/m6tr_0' },
+                  { Icon: Github, label: 'GitHub', href: 'https://github.com/DaveAust1n' },
+                  { Icon: Music, label: 'TikTok', href: 'https://tiktok.com/@metrothedeveloper' },
+                ].map(({ Icon, label, href }) => (
                   <a
-                    key={index}
-                    href="#"
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
                     className="w-12 h-12 rounded-xl bg-dark-700 flex items-center justify-center hover:bg-gradient-to-br hover:from-accent-blue hover:to-accent-purple transition-all duration-300 group"
                   >
                     <Icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
