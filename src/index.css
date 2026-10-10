@@ -48,7 +48,7 @@ body {
 }
 .gradient-border {
   position: relative;
-  background: rgba(23, 72, 59, 0.035);
+  background: rgba(184, 94, 63, 0.045);
 }
 .gradient-border::before {
   content: '';
@@ -63,7 +63,7 @@ body {
   pointer-events: none;
 }
 .hover-glow { transition: all 0.3s ease; }
-.hover-glow:hover { box-shadow: 0 14px 36px rgba(23, 72, 59, 0.12); }
+.hover-glow:hover { box-shadow: 0 14px 36px rgba(184, 94, 63, 0.14); }
 .card-3d { transform-style: preserve-3d; transition: transform 0.3s ease; }
 .card-3d:hover { transform: perspective(1000px) rotateX(1deg) rotateY(-1deg) translateY(-4px); }
 .scroll-indicator { animation: bounce 2s infinite; }
@@ -95,18 +95,21 @@ body {
 .bg-dark-700 { background-color: rgba(255, 255, 255, 0.82) !important; }
 .bg-dark-600 { background-color: var(--metro-ivory-deep) !important; }
 
-/* Old blue/purple gradient backgrounds become solid green. No muddy green/orange blends. */
-.bg-gradient-to-r, .bg-gradient-to-br {
+/* Replace old blue/purple gradients with distinct brand colors, not more green. */
+.bg-gradient-to-r {
   background-image: none !important;
-  background-color: var(--metro-green) !important;
+  background-color: var(--metro-clay) !important;
   color: var(--metro-ivory) !important;
 }
-.bg-gradient-to-r .text-white, .bg-gradient-to-br .text-white {
-  color: var(--metro-ivory) !important;
+.bg-gradient-to-br {
+  background-image: none !important;
+  background-color: var(--metro-ivory-deep) !important;
+  color: var(--metro-graphite) !important;
 }
-.bg-gradient-to-r:hover, .bg-gradient-to-br:hover {
-  background-color: var(--metro-green-hover) !important;
-}
+.bg-gradient-to-r .text-white { color: var(--metro-ivory) !important; }
+.bg-gradient-to-br .text-white { color: var(--metro-graphite) !important; }
+.bg-gradient-to-r:hover { background-color: var(--metro-clay-hover) !important; }
+.bg-gradient-to-br:hover { background-color: var(--metro-ivory) !important; }
 .glass-dark .text-gray-300, .glass-dark .text-gray-400, .glass-dark .text-white {
   color: var(--metro-ivory) !important;
 }
