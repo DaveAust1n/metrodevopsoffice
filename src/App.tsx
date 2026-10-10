@@ -159,7 +159,6 @@ function Hero() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center max-w-4xl mx-auto">
           <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-8 animate-fade-in">
-            <Sparkles className="w-4 h-4 text-accent-blue" />
             <span className="text-sm text-gray-300">Technology partner for African businesses</span>
           </div>
 
