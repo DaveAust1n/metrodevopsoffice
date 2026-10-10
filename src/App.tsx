@@ -421,7 +421,16 @@ function Projects() {
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="relative aspect-[4/3] overflow-hidden">
-                {project.image ? (
+                {project.liveUrl ? (
+                  <iframe
+                    src={project.liveUrl}
+                    title={`${project.title} live website preview`}
+                    className="w-full h-full bg-white border-0"
+                    loading="lazy"
+                    referrerPolicy="strict-origin-when-cross-origin"
+                    sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+                  />
+                ) : project.image ? (
                   <img
                     src={project.image}
                     alt={project.title}
