@@ -25,18 +25,24 @@ export async function loadWebsiteContent() {
   if (websiteError) throw websiteError;
 
   const [contentResult, productsResult, servicesResult] = await Promise.all([
-    supabase.from('website_content').select('*').eq('website_id', website.id).single(),
+    supabase.from('website_content').select('*').eq('website_id', website.id).maybeSingle(),
     supabase.from('products').select('*').eq('website_id', website.id).eq('is_published', true).order('display_order'),
     supabase.from('services').select('*').eq('website_id', website.id).eq('is_published', true).order('display_order'),
   ]);
 
-  if (contentResult.error) throw contentResult.error;
-  if (productsResult.error) throw productsResult.error;
+  // Services should still render if optional website content or products are absent.
   if (servicesResult.error) throw servicesResult.error;
+
+  if (contentResult.error) {
+    console.warn('MetroDEVOPS Hub website content could not be loaded.', contentResult.error);
+  }
+  if (productsResult.error) {
+    console.warn('MetroDEVOPS Hub products could not be loaded.', productsResult.error);
+  }
 
   return {
     website,
-    content: contentResult.data,
+    content: contentResult.data ?? null,
     products: productsResult.data ?? [],
     services: servicesResult.data ?? [],
   };
