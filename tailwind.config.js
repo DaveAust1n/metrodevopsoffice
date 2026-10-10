@@ -5,21 +5,21 @@ export default {
     extend: {
       colors: {
         dark: {
-          900: '#0a0a0f',
-          800: '#12121a',
-          700: '#1a1a24',
-          600: '#22222e',
-          500: '#2a2a38',
+          900: '#F1EDE2',
+          800: '#E7E2D6',
+          700: '#F8F5ED',
+          600: '#DDD7C9',
+          500: '#CBC4B4',
         },
         accent: {
-          blue: '#3b82f6',
-          purple: '#8b5cf6',
-          cyan: '#06b6d4',
+          blue: '#17483B',
+          purple: '#B85E3F',
+          cyan: '#C4CE83',
         },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', 'sans-serif'],
-        display: ['Space Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['DM Sans', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['Manrope', 'Inter', 'system-ui', 'sans-serif'],
       },
       animation: {
         'float': 'float 6s ease-in-out infinite',
