@@ -5,11 +5,14 @@
 :root {
   color-scheme: light;
   --metro-green: #17483B;
+  --metro-green-hover: #10382E;
   --metro-ivory: #F1EDE2;
+  --metro-ivory-deep: #E4DFD3;
   --metro-clay: #B85E3F;
+  --metro-clay-hover: #98482F;
   --metro-growth: #C4CE83;
   --metro-graphite: #252D29;
-  --metro-muted: #65716A;
+  --metro-muted: #53635A;
 }
 
 html { scroll-behavior: smooth; background: var(--metro-ivory); }
@@ -20,29 +23,32 @@ body {
 }
 ::selection { background: rgba(184, 94, 63, 0.25); color: var(--metro-graphite); }
 
+/* Surfaces */
 .glass {
-  background: rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border: 1px solid rgba(23, 72, 59, 0.12);
-  box-shadow: 0 12px 34px rgba(37, 45, 41, 0.045);
+  border: 1px solid rgba(23, 72, 59, 0.16);
+  box-shadow: 0 12px 34px rgba(37, 45, 41, 0.06);
 }
 .glass-dark {
-  background: rgba(23, 72, 59, 0.96);
+  background: var(--metro-green);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(241, 237, 226, 0.12);
+  border: 1px solid rgba(241, 237, 226, 0.16);
   color: var(--metro-ivory);
 }
+
+/* Text gradients are reserved for headings/brand accents, never button labels. */
 .gradient-text {
-  background: linear-gradient(120deg, #17483B 8%, #B85E3F 88%);
+  background: linear-gradient(120deg, var(--metro-green) 8%, var(--metro-clay) 88%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 .gradient-border {
   position: relative;
-  background: linear-gradient(145deg, rgba(23, 72, 59, 0.055), rgba(184, 94, 63, 0.045));
+  background: rgba(23, 72, 59, 0.035);
 }
 .gradient-border::before {
   content: '';
@@ -76,24 +82,41 @@ body {
 .animate-on-scroll { opacity: 0; transform: translateY(30px); transition: all 0.6s ease-out; }
 .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
 
-/* Re-map the previous dark-template utility classes into the MetroDEVOPS identity. */
+/* Legacy template colors mapped to a deliberate, high-contrast palette. */
 .text-white { color: var(--metro-graphite) !important; }
-.text-gray-300, .text-gray-400 { color: #53635A !important; }
+.text-gray-300, .text-gray-400 { color: var(--metro-muted) !important; }
 .text-gray-500 { color: #69756C !important; }
-.text-green-400 { color: var(--metro-green) !important; }
-.text-accent-blue { color: var(--metro-green) !important; }
+.text-green-400, .text-accent-blue { color: var(--metro-green) !important; }
 .text-accent-purple { color: var(--metro-clay) !important; }
-.text-accent-cyan { color: #75833D !important; }
+.text-accent-cyan { color: #66752D !important; }
+
 .bg-dark-900 { background-color: var(--metro-ivory) !important; }
-.bg-dark-800\/50 { background-color: rgba(23, 72, 59, 0.035) !important; }
-.bg-dark-700 { background-color: rgba(255, 255, 255, 0.72) !important; }
-.bg-dark-600 { background-color: #E4DFD3 !important; }
-.border-white\/10, .border-white\/20 { border-color: rgba(23, 72, 59, 0.14) !important; }
-.border-t.border-white\/10, .border-t.border-white\/20 { border-color: rgba(23, 72, 59, 0.14) !important; }
-.bg-gradient-to-r, .bg-gradient-to-br { color: var(--metro-ivory); }
-.bg-gradient-to-r .text-white, .bg-gradient-to-br .text-white { color: var(--metro-ivory) !important; }
-.glass-dark .text-gray-300, .glass-dark .text-gray-400, .glass-dark .text-white { color: var(--metro-ivory) !important; }
+.bg-dark-800\/50 { background-color: rgba(23, 72, 59, 0.045) !important; }
+.bg-dark-700 { background-color: rgba(255, 255, 255, 0.82) !important; }
+.bg-dark-600 { background-color: var(--metro-ivory-deep) !important; }
+
+/* Old blue/purple gradient backgrounds become solid green. No muddy green/orange blends. */
+.bg-gradient-to-r, .bg-gradient-to-br {
+  background-image: none !important;
+  background-color: var(--metro-green) !important;
+  color: var(--metro-ivory) !important;
+}
+.bg-gradient-to-r .text-white, .bg-gradient-to-br .text-white {
+  color: var(--metro-ivory) !important;
+}
+.bg-gradient-to-r:hover, .bg-gradient-to-br:hover {
+  background-color: var(--metro-green-hover) !important;
+}
+.glass-dark .text-gray-300, .glass-dark .text-gray-400, .glass-dark .text-white {
+  color: var(--metro-ivory) !important;
+}
 .glass-dark .text-accent-blue { color: var(--metro-growth) !important; }
+.glass-dark .text-accent-purple { color: #F0B29B !important; }
+.glass-dark .gradient-text {
+  background: none;
+  -webkit-text-fill-color: var(--metro-ivory);
+  color: var(--metro-ivory);
+}
 input, textarea, select { color: var(--metro-graphite) !important; }
 input::placeholder, textarea::placeholder { color: #778178 !important; }
 input:focus, textarea:focus, select:focus {
