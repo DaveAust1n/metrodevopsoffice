@@ -13,6 +13,29 @@ function getSupabase() {
 
 const WEBSITE_SLUG = 'metrodevops-ccf4be';
 
+
+export async function loadWebsiteServices() {
+  const supabase = getSupabase();
+  const { data: website, error: websiteError } = await supabase
+    .from('websites')
+    .select('id')
+    .eq('slug', WEBSITE_SLUG)
+    .eq('status', 'live')
+    .single();
+
+  if (websiteError) throw websiteError;
+
+  const { data: services, error: servicesError } = await supabase
+    .from('services')
+    .select('name, description, is_published, display_order')
+    .eq('website_id', website.id)
+    .eq('is_published', true)
+    .order('display_order');
+
+  if (servicesError) throw servicesError;
+  return services ?? [];
+}
+
 export async function loadWebsiteContent() {
   const supabase = getSupabase();
   const { data: website, error: websiteError } = await supabase
