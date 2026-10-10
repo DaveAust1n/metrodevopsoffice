@@ -368,25 +368,32 @@ function Projects() {
 
   const projects = [
     {
-      title: 'RickyLens Photography',
-      desc: 'A modern photography portfolio designed to showcase professional photography with elegant galleries and a premium user experience.',
-      image: 'https://images.pexels.com/photos/1040880/pexels-photo-1040880.jpeg?auto=compress&cs=tinysrgb&w=800',
-      liveUrl: 'https://rickylens.lovable.app',
-      tags: ['React', 'Portfolio', 'Photography'],
+      title: 'August Products',
+      desc: 'A business website built to present products and make it easier for customers to explore the brand.',
+      image: '',
+      liveUrl: 'https://augustproducts.com',
+      tags: ['Business Website', 'Product Showcase'],
     },
     {
-      title: 'Sergio Vault',
-      desc: 'A modern cryptocurrency platform interface with a sleek dashboard, responsive layouts, and fintech-inspired design.',
-      image: 'https://images.pexels.com/photos/8370753/pexels-photo-8370753.jpeg?auto=compress&cs=tinysrgb&w=800',
-      liveUrl: 'https://sergio-vault-pro.lovable.app',
-      tags: ['React', 'Crypto', 'Dashboard'],
+      title: 'Genesis Autos',
+      desc: 'An automotive spare-parts website designed to showcase products and support online enquiries and shopping.',
+      image: '',
+      liveUrl: 'https://genesisautos.org',
+      tags: ['Automotive', 'E-commerce'],
     },
     {
-      title: 'BeautyDaves Cosmetics',
-      desc: 'A stylish beauty and cosmetics website featuring product showcases, elegant branding, and a user-friendly shopping experience.',
-      image: 'https://images.pexels.com/photos/1596425/pexels-photo-1596425.jpeg?auto=compress&cs=tinysrgb&w=800',
-      liveUrl: 'https://beautydaves.lovable.app',
-      tags: ['React', 'E-commerce', 'Beauty'],
+      title: 'Project Coming Soon',
+      desc: 'A new MetroDEVOPS project will be featured here soon.',
+      image: '',
+      liveUrl: '',
+      tags: ['Coming Soon'],
+    },
+    {
+      title: 'Project Coming Soon',
+      desc: 'Another project is in the works. Check back soon for updates.',
+      image: '',
+      liveUrl: '',
+      tags: ['Coming Soon'],
     },
   ];
 
@@ -414,12 +421,18 @@ function Projects() {
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="relative aspect-[4/3] overflow-hidden">
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  loading="lazy"
-                />
+                {project.image ? (
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-[#252D29] flex items-center justify-center">
+                    <Globe className="w-12 h-12 text-[#C4CE83]/70" aria-hidden="true" />
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/30 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
                 <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
@@ -434,15 +447,21 @@ function Projects() {
                   {project.title}
                 </h3>
                 <p className="text-gray-400 text-sm mb-4 line-clamp-2">{project.desc}</p>
-                <a
-                  href={project.liveUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-accent-blue hover:text-accent-purple transition-colors font-medium text-sm group/link"
-                >
-                  Visit Live Site
-                  <ExternalLink className="w-4 h-4 group-hover/link:translate-y-[-2px] transition-transform" />
-                </a>
+                {project.liveUrl ? (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-accent-blue hover:text-accent-purple transition-colors font-medium text-sm group/link"
+                  >
+                    Visit Live Site
+                    <ExternalLink className="w-4 h-4 group-hover/link:translate-y-[-2px] transition-transform" />
+                  </a>
+                ) : (
+                  <span className="inline-flex items-center gap-2 text-[#C4CE83] font-medium text-sm">
+                    In Progress
+                  </span>
+                )}
               </div>
             </div>
           ))}
