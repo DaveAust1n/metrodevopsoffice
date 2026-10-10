@@ -8,7 +8,7 @@ import {
   Users, Target, Lightbulb, Rocket, TestTube, HelpCircle, Music,
   AlertCircle
 } from 'lucide-react';
-import { loadWebsiteContent } from './lib/websiteContent';
+import { loadWebsiteServices } from './lib/websiteContent';
 
 // Hook for intersection observer animations
 function useInView(threshold = 0.1) {
@@ -328,20 +328,25 @@ function Services() {
   ];
 
   const [hubServices, setHubServices] = useState<Array<{ name: string; description: string | null }>>([]);
+  const [serviceLoadError, setServiceLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
-    loadWebsiteContent()
+    loadWebsiteServices()
       .then((data) => {
         if (active) {
-          setHubServices(data.services.map((service: { name: string; description: string | null }) => ({
+          setHubServices(data.map((service: { name: string; description: string | null }) => ({
             name: service.name,
             description: service.description,
           })));
+          setServiceLoadError(null);
         }
       })
-      .catch((error) => {
-        console.warn('MetroDEVOPS Hub content was not loaded; using the portfolio defaults.', error);
+      .catch((error: unknown) => {
+        console.error('MetroDEVOPS Hub services failed to load:', error);
+        if (active) {
+          setServiceLoadError(error instanceof Error ? error.message : 'Unknown connection error');
+        }
       });
 
     return () => {
@@ -372,6 +377,12 @@ function Services() {
             From concept to launch, we provide comprehensive web development services to bring your vision to life.
           </p>
         </div>
+
+        {serviceLoadError && (
+          <p role="status" className="mb-6 text-center text-sm text-amber-300">
+            Hub services could not load: {serviceLoadError}
+          </p>
+        )}
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
           {services.map((service, index) => (
