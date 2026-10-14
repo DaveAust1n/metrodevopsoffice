@@ -8,7 +8,6 @@ import {
   Users, Target, Lightbulb, Rocket, TestTube, HelpCircle, Music,
   AlertCircle
 } from 'lucide-react';
-import { loadWebsiteServices } from './lib/websiteContent';
 
 // Hook for intersection observer animations
 function useInView(threshold = 0.1) {
@@ -317,7 +316,6 @@ function Services() {
 
   useEffect(() => {
     let active = true;
-    loadWebsiteServices().then((data) => {
       if (active) setHubServices(data.map((service: { name: string; description: string | null }) => ({
         name: service.name, description: service.description,
       })));
