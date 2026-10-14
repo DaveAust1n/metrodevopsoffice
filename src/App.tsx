@@ -419,19 +419,6 @@ function Projects() {
       tags: ['Automotive', 'E-commerce'],
     },
     {
-      title: 'Project Coming Soon',
-      desc: 'A new MetroDEVOPS project will be featured here soon.',
-      image: '',
-      liveUrl: '',
-      tags: ['Coming Soon'],
-    },
-    {
-      title: 'Project Coming Soon',
-      desc: 'Another project is in the works. Check back soon for updates.',
-      image: '',
-      liveUrl: '',
-      tags: ['Coming Soon'],
-    },
   ];
 
   return (
