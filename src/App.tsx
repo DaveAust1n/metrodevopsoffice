@@ -403,6 +403,20 @@ function Projects() {
 
   const projects = [
     {
+      title: 'WareTrack',
+      desc: 'A spatial warehouse management interface for organizing warehouse zones, viewing stock locations and recording stock operations.',
+      image: '',
+      liveUrl: 'https://waretrack-3d.vercel.app',
+      tags: ['Warehouse Management', 'Inventory Systems'],
+    },
+    {
+      title: 'SetupLug',
+      desc: 'A web platform built to make the SetupLug service accessible online.',
+      image: '',
+      liveUrl: 'https://setuplug.vercel.app',
+      tags: ['Web Application', 'Digital Platform'],
+    },
+    {
       title: 'August Products',
       desc: 'A business website built to present products and make it easier for customers to explore the brand.',
       image: '',
@@ -416,7 +430,6 @@ function Projects() {
       liveUrl: 'https://genesisautos.org',
       tags: ['Automotive', 'E-commerce'],
     },
-    {
   ];
 
   return (
