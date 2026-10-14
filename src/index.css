@@ -136,3 +136,30 @@ input:focus, textarea:focus, select:focus {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
 }
+
+
+/* MetroDEVOPS service-card and action clarity refresh */
+:root {
+  --metro-blue: #2C6E8F;
+  --metro-blue-deep: #20536D;
+}
+.service-card {
+  box-shadow: 0 4px 18px rgba(37, 45, 41, 0.035);
+}
+.service-card:hover {
+  border-color: rgba(44, 110, 143, 0.55);
+  box-shadow: 0 12px 28px rgba(44, 110, 143, 0.10);
+  transform: translateY(-2px);
+}
+.service-card h4 {
+  color: var(--metro-graphite);
+}
+.service-card:hover h4 {
+  color: var(--metro-blue-deep);
+}
+a[href="#contact"].inline-flex {
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.10);
+}
+a[href="#contact"].inline-flex:hover {
+  transform: translateY(-1px);
+}
