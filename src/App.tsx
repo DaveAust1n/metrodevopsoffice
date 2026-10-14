@@ -164,11 +164,11 @@ function Hero() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Build Forward.
+            Build better.
             <br />
-            <span className="gradient-text">African Business.</span>
+            <span className="gradient-text">Grow smarter.</span>
             <br />
-            Real Progress.
+            Move forward.
           </h1>
 
           <p className="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
@@ -313,91 +313,86 @@ function About() {
 // Services Section
 function Services() {
   const { ref, inView } = useInView();
-
-  const defaultServices = [
-    { icon: Globe, title: 'Business Websites', desc: 'Professional websites that establish your brand and drive growth' },
-    { icon: Camera, title: 'Portfolio Websites', desc: 'Showcase your work with stunning portfolio designs' },
-    { icon: Target, title: 'Landing Pages', desc: 'High-converting landing pages for campaigns and products' },
-    { icon: ShoppingCart, title: 'E-commerce Websites', desc: 'Online stores that drive sales and customer engagement' },
-    { icon: Code, title: 'Web Application Development', desc: 'Custom web apps tailored to your business needs' },
-    { icon: RefreshCw, title: 'Website Redesign', desc: 'Transform outdated sites into modern experiences' },
-    { icon: Wrench, title: 'Website Maintenance', desc: 'Keep your website secure, updated, and optimized' },
-    { icon: Search, title: 'Performance & SEO', desc: 'Boost visibility and speed for better rankings' },
-    { icon: Monitor, title: 'Responsive Design', desc: 'Beautiful experiences on every device and screen' },
-    { icon: Palette, title: 'UI/UX Implementation', desc: 'Pixel-perfect designs that engage and convert' },
-  ];
-
   const [hubServices, setHubServices] = useState<Array<{ name: string; description: string | null }>>([]);
-  const [serviceLoadError, setServiceLoadError] = useState<string | null>(null);
 
   useEffect(() => {
     let active = true;
-    loadWebsiteServices()
-      .then((data) => {
-        if (active) {
-          setHubServices(data.map((service: { name: string; description: string | null }) => ({
-            name: service.name,
-            description: service.description,
-          })));
-          setServiceLoadError(null);
-        }
-      })
-      .catch((error: unknown) => {
-        console.error('MetroDEVOPS Hub services failed to load:', error);
-        if (active) {
-          setServiceLoadError(error instanceof Error ? error.message : 'Unknown connection error');
-        }
-      });
-
-    return () => {
-      active = false;
-    };
+    loadWebsiteServices().then((data) => {
+      if (active) setHubServices(data.map((service: { name: string; description: string | null }) => ({
+        name: service.name, description: service.description,
+      })));
+    }).catch((error: unknown) => console.error('MetroDEVOPS Hub services failed to load:', error));
+    return () => { active = false; };
   }, []);
 
-  const services = hubServices.length > 0
-    ? hubServices.map((service) => ({
-        icon: Wrench,
-        title: service.name,
-        desc: service.description || 'Learn more about this MetroDEVOPS service.',
-      }))
-    : defaultServices;
+  const groups = [
+    { title: 'Digital Foundations', intro: 'Build a credible online presence customers can find, trust and use.', icon: Globe, services: [
+      ['Business Websites', 'Professional websites that explain your offer and turn visitors into enquiries.'],
+      ['E-commerce Websites', 'Online stores with product catalogues, shopping carts and checkout or enquiry flows.'],
+      ['Landing Pages', 'Focused pages for campaigns, launches and specific services.'],
+      ['Portfolio & Personal Websites', 'Present your work, expertise and achievements professionally.'],
+      ['Website Redesigns', 'Improve an existing site’s design, structure, clarity and mobile experience.'],
+      ['Custom Domains & Deployment', 'Connect a website to a custom domain and publish it properly.'],
+      ['Business Email Setup', 'Set up a professional email identity for your business domain.'],
+      ['Website Maintenance', 'Content updates, fixes and ongoing improvements for existing websites.'],
+      ['Search Visibility & SEO Foundations', 'Improve page structure, metadata, indexing and technical discoverability.'],
+      ['UI Implementation & Responsive Design', 'Deliver mobile-friendly interfaces across screen sizes.'],
+    ] },
+    { title: 'Business Systems', intro: 'Make everyday operations more organized, connected and efficient.', icon: Monitor, services: [
+      ['Custom Web Applications', 'Build browser-based tools around your business workflow.'],
+      ['Business Dashboards', 'Bring useful operational information into one clear interface.'],
+      ['Content Management & Website Hub', 'Update website text, services, products and images without editing code.'],
+      ['Workflow Automation', 'Reduce repetitive admin tasks by connecting the steps your team follows.'],
+      ['System Integrations', 'Connect compatible apps, APIs and data sources to reduce duplicate work.'],
+      ['Booking & Enquiry Systems', 'Give customers a clearer way to request appointments or submit enquiries.'],
+      ['Product & Service Catalogues', 'Organize offerings and help customers browse them.'],
+      ['Database-Backed Websites', 'Add structured data and backend functionality where the project needs it.'],
+    ] },
+    { title: 'Intelligent Technology', intro: 'Apply AI where it solves a real customer or business problem.', icon: Sparkles, services: [
+      ['AI Customer-Service Agents', 'Help answer common questions and guide customers to the right next step.'],
+      ['Website Chatbots', 'Add a conversational support layer to a business website.'],
+      ['WhatsApp Business Automation', 'Support suitable customer enquiries and repetitive messaging workflows.'],
+      ['AI Integrations', 'Connect AI capabilities to digital products and business processes.'],
+      ['Lead Capture & Qualification', 'Collect enquiry details and help route prospective customers.'],
+      ['AI-Assisted Business Workflows', 'Use AI for practical tasks such as drafting, classification and information retrieval.'],
+    ] },
+  ] as const;
+
+  const hubExtras = hubServices.filter((service) =>
+    !groups.some((group) => group.services.some(([name]) => name.toLowerCase() === service.name.toLowerCase()))
+  );
 
   return (
-    <section id="services" className="py-20 lg:py-32 relative bg-dark-800/50">
+    <section id="services" className="py-20 lg:py-28 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <Wrench className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">What We Offer</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-            Our <span className="gradient-text">Services</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            From concept to launch, we provide comprehensive web development services to bring your vision to life.
-          </p>
+        <div ref={ref} className={`max-w-3xl mb-14 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+          <p className="text-sm font-semibold tracking-[0.18em] uppercase text-[#B85E3F] mb-4">What we do</p>
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-5">Technology that works for <span className="gradient-text">your business.</span></h2>
+          <p className="text-lg text-gray-400">From your first professional website to connected business systems and practical AI, MetroDEVOPS helps African businesses move forward with technology.</p>
         </div>
-
-        {serviceLoadError && (
-          <p role="status" className="mb-6 text-center text-sm text-amber-300">
-            Hub services could not load: {serviceLoadError}
-          </p>
-        )}
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
-          {services.map((service, index) => (
-            <div
-              key={service.title}
-              className={`glass gradient-border rounded-2xl p-6 hover-glow card-3d transition-all duration-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${index * 50}ms` }}
-            >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 flex items-center justify-center mb-4">
-                <service.icon className="w-6 h-6 text-accent-blue" />
+        <div className="space-y-14">
+          {groups.map((group) => (
+            <div key={group.title}>
+              <div className="flex items-start gap-4 mb-6">
+                <div className="w-11 h-11 shrink-0 rounded-xl bg-[#17483B] text-[#F1EDE2] flex items-center justify-center"><group.icon className="w-5 h-5" /></div>
+                <div><h3 className="text-2xl font-bold mb-1">{group.title}</h3><p className="text-gray-400">{group.intro}</p></div>
               </div>
-              <h3 className="font-semibold text-white mb-2">{service.title}</h3>
-              <p className="text-sm text-gray-400">{service.desc}</p>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {group.services.map(([title, desc]) => (
+                  <article key={title} className="service-card rounded-xl border border-[#17483B]/15 bg-white/75 p-5 transition-all duration-200">
+                    <h4 className="font-semibold text-[#252D29] mb-2">{title}</h4><p className="text-sm leading-6 text-[#53635A]">{desc}</p>
+                  </article>
+                ))}
+              </div>
             </div>
           ))}
+          {hubExtras.length > 0 && <div><h3 className="text-2xl font-bold mb-6">More services</h3><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {hubExtras.map((service) => <article key={service.name} className="service-card rounded-xl border border-[#17483B]/15 bg-white/75 p-5"><h4 className="font-semibold text-[#252D29] mb-2">{service.name}</h4><p className="text-sm leading-6 text-[#53635A]">{service.description || 'Talk to us about how this service can support your business.'}</p></article>)}
+          </div></div>}
+        </div>
+        <div className="mt-12 rounded-2xl bg-[#17483B] p-7 sm:p-9 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+          <div><h3 className="text-xl sm:text-2xl font-bold text-[#F1EDE2] mb-2">Not sure what your business needs?</h3><p className="text-[#F1EDE2]/80">Tell us what you are trying to improve. We’ll help you identify a practical next step.</p></div>
+          <a href="#contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#F1EDE2] px-6 py-3 font-semibold text-[#17483B] hover:bg-white transition-colors whitespace-nowrap">Discuss your project <ArrowRight className="w-4 h-4" /></a>
         </div>
       </div>
     </section>
@@ -895,7 +890,7 @@ function Contact() {
             Let's Build Something <span className="gradient-text">Amazing</span>
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Have a project in mind? Let's turn your idea into a professional website that works for your business.
+            Have a project in mind? Tell us what your business needs and we’ll help you choose a practical digital solution.
           </p>
         </div>
 
@@ -1170,7 +1165,7 @@ function Footer() {
           <div>
             <h4 className="font-semibold text-white mb-4">Services</h4>
             <ul className="space-y-2">
-              {['Business Websites', 'Portfolio Sites', 'E-commerce', 'Web Apps'].map((service) => (
+              {['Business Websites', 'Business Email & Domains', 'Automation & Integrations', 'AI Agents & Chatbots'].map((service) => (
                 <li key={service}>
                   <a
                     href="#services"
