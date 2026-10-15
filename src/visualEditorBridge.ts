@@ -61,7 +61,7 @@ function sendSelected(element: HTMLElement) {
     src: element instanceof HTMLImageElement ? element.currentSrc || element.src : '',
     color: toHex(getComputedStyle(element).color),
     backgroundColor: toHex(getComputedStyle(element).backgroundColor),
-    canEditText: element.children.length === 0 || element.tagName.toLowerCase() === 'button' || element.tagName.toLowerCase() === 'a',
+    canEditText: ['h1','h2','h3','h4','h5','p','a','button','span','li','div'].includes(element.tagName.toLowerCase()),
   }, '*');
 }
 
