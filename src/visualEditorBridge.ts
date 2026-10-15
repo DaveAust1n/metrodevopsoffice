@@ -75,7 +75,7 @@ function applyEdit(edit: VisualEdit) {
   if (typeof edit.backgroundColor === 'string') element.style.backgroundColor = edit.backgroundColor;
 }
 
-function onClick(event: MouseEvent) {
+export function applySavedVisualEdits(edits: VisualEdit[]) {\n  edits.forEach(applyEdit);\n}\n\nfunction onClick(event: MouseEvent) {
   if (!editorMode || !(event.target instanceof Element)) return;
   const target = event.target.closest('h1,h2,h3,h4,h5,p,a,button,span,li,img,section,article,div');
   if (!(target instanceof HTMLElement) || target.closest('[data-metro-editor-ui]')) return;
