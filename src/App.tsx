@@ -1,4 +1,4 @@
-import { installVisualEditorBridge } from './visualEditorBridge';
+import { applySavedVisualEdits, installVisualEditorBridge, type VisualEdit } from './visualEditorBridge';\nimport { loadWebsiteContent } from './lib/websiteContent';
 import { loadWebsiteServices } from './lib/websiteContent';
 import { useState, useEffect, useRef, FormEvent } from 'react';
 import {
@@ -1223,7 +1223,21 @@ function ScrollToTop() {
 
 // Main App
 function App() {
-  useEffect(() => { installVisualEditorBridge(); }, []);
+  useEffect(() => {
+    installVisualEditorBridge();
+    let active = true;
+    loadWebsiteContent()
+      .then(({ content }) => {
+        if (!active || !content?.social_links?._visualEdits) return;
+        try {
+          applySavedVisualEdits(JSON.parse(content.social_links._visualEdits) as VisualEdit[]);
+        } catch (error) {
+          console.warn('Saved visual website edits could not be applied:', error);
+        }
+      })
+      .catch((error: unknown) => console.warn('Saved visual website edits are unavailable:', error));
+    return () => { active = false; };
+  }, []);
 
   return (
     <>
