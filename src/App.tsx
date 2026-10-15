@@ -1,3 +1,4 @@
+import { installVisualEditorBridge } from './visualEditorBridge';
 import { useState, useEffect, useRef, FormEvent } from 'react';
 import {
   Menu, X, ChevronDown, ExternalLink, Phone,
@@ -1217,6 +1218,8 @@ function ScrollToTop() {
 
 // Main App
 function App() {
+  useEffect(() => { installVisualEditorBridge(); }, []);
+
   return (
     <>
       <Navbar />
