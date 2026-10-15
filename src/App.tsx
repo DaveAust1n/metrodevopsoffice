@@ -1,4 +1,5 @@
 import { installVisualEditorBridge } from './visualEditorBridge';
+import { loadWebsiteServices } from './lib/websiteContent';
 import { useState, useEffect, useRef, FormEvent } from 'react';
 import {
   Menu, X, ChevronDown, ExternalLink, Phone,
@@ -317,10 +318,14 @@ function Services() {
 
   useEffect(() => {
     let active = true;
-      if (active) setHubServices(data.map((service: { name: string; description: string | null }) => ({
-        name: service.name, description: service.description,
-      })));
-    }).catch((error: unknown) => console.error('MetroDEVOPS Hub services failed to load:', error));
+    loadWebsiteServices()
+      .then((data) => {
+        if (active) setHubServices(data.map((service: { name: string; description: string | null }) => ({
+          name: service.name,
+          description: service.description,
+        })));
+      })
+      .catch((error: unknown) => console.error('MetroDEVOPS Hub services failed to load:', error));
     return () => { active = false; };
   }, []);
 
