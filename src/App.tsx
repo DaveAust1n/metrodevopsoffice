@@ -262,7 +262,7 @@ function Contact() {
   return (
     <section id="contact" className="contact-section">
       <div className="section-shell">
-        <div className="contact-panel"><div className="contact-grid" /><div className="contact-copy"><p className="section-kicker section-kicker-light">Your next step starts here</p><h2>Let's build something<br /><span>your business can grow with.</span></h2><p>Tell us what you’re trying to improve. We’ll talk through the best next step and a sensible scope for your business.</p><div className="contact-actions"><a className="button button-light" href={WHATSAPP} target="_blank" rel="noreferrer">Talk to MetroDEVOPS <ArrowUpRight size={18} /></a><a className="contact-email" href="mailto:hello@metrodevops.com">Prefer email? Get in touch</a></div></div><div className="contact-stamp"><Zap size={23} /><span>Build with purpose.</span><span>Grow with control.</span></div></div>
+        <div className="contact-panel"><div className="contact-grid" /><div className="contact-copy"><p className="section-kicker section-kicker-light">Your next step starts here</p><h2>Let's build something<br /><span>your business can grow with.</span></h2><p>Tell us what you’re trying to improve. We’ll talk through the best next step and a sensible scope for your business.</p><div className="contact-actions"><a className="button button-light" href={WHATSAPP} target="_blank" rel="noreferrer">Talk to MetroDEVOPS <ArrowUpRight size={18} /></a><a className="contact-email" href="https://instagram.com/m6tr_0" target="_blank" rel="noreferrer">Prefer social? Message us on Instagram</a></div></div><div className="contact-stamp"><Zap size={23} /><span>Build with purpose.</span><span>Grow with control.</span></div></div>
       </div>
     </section>
   );
