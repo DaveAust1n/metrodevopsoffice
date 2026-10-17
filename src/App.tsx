@@ -1,1263 +1,288 @@
-import { applySavedVisualEdits, installVisualEditorBridge, type VisualEdit } from './visualEditorBridge';
-import { loadWebsiteContent } from './lib/websiteContent';
-import { loadWebsiteServices } from './lib/websiteContent';
-import { useState, useEffect, useRef, FormEvent } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  Menu, X, ChevronDown, ExternalLink, Phone,
-  Globe, Smartphone, ShoppingCart, RefreshCw, Wrench, Search,
-  Monitor, Palette, Zap, Shield, DollarSign, Code, Headphones,
-  Camera, Sparkles, Instagram,
-  Github, ArrowUp, Send, CheckCircle, ArrowRight, Star, Clock,
-  Users, Target, Lightbulb, Rocket, TestTube, HelpCircle, Music,
-  AlertCircle
+  ArrowDownRight, ArrowRight, ArrowUpRight, Check, ChevronRight, Code2,
+  Compass, Layers3, Menu, MonitorSmartphone, MoveRight, PanelsTopLeft,
+  ShieldCheck, Sparkles, Workflow, X, Zap
 } from 'lucide-react';
+import { loadWebsiteServices } from './lib/websiteContent';
+import { applySavedVisualEdits, installVisualEditorBridge, type VisualEdit } from './visualEditorBridge';
 
-// Hook for intersection observer animations
-function useInView(threshold = 0.1) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
+type Service = { name: string; description: string | null };
+const WHATSAPP = 'https://wa.me/2349163197774';
+const HUB = 'https://metrodevopshub.vercel.app';
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setInView(true);
-        }
-      },
-      { threshold }
-    );
+const serviceGroups = [
+  {
+    number: '01',
+    title: 'Digital foundations',
+    intro: 'A clear, credible online home for your business — built to work on the phones your customers already use.',
+    icon: PanelsTopLeft,
+    items: [
+      ['Business websites', 'Professional websites designed around your customers and your next business goal.'],
+      ['Online stores', 'Product catalogues, categories, enquiry flows and shopping experiences that can grow with you.'],
+      ['Website refreshes', 'Make an existing site clearer, faster, more useful and easier to maintain.'],
+      ['Domains & business email', 'Move beyond temporary links and give your business a more professional identity.'],
+    ],
+  },
+  {
+    number: '02',
+    title: 'Business systems',
+    intro: 'Useful software that fits how your business actually operates — not another dashboard for the sake of it.',
+    icon: Workflow,
+    items: [
+      ['Website management', 'Give owners a place to update copy, images, services and products without touching code.'],
+      ['Custom web applications', 'Build focused tools for real workflows, from operations to customer requests.'],
+      ['Bookings & enquiries', 'Make it easier for customers to ask questions, request appointments and take the next step.'],
+      ['Integrations & automation', 'Connect repetitive steps and compatible tools to reduce avoidable manual work.'],
+    ],
+  },
+  {
+    number: '03',
+    title: 'Practical AI',
+    intro: 'Apply AI where it saves time, improves support or helps a team handle work more consistently.',
+    icon: Sparkles,
+    items: [
+      ['WhatsApp automation', 'Support repeat customer questions and suitable messaging workflows.'],
+      ['Customer-service agents', 'Help visitors find information and understand what to do next.'],
+      ['AI integrations', 'Connect AI capabilities to a website or workflow when there is a clear use case.'],
+      ['Lead capture', 'Collect useful enquiry details and organize follow-up.'],
+    ],
+  },
+] as const;
 
-    if (ref.current) {
-      observer.observe(ref.current);
-    }
+const projects = [
+  {
+    label: 'Commerce · Website systems',
+    name: 'August Products',
+    description: 'A product-led online presence built to help customers explore a catalogue and find the right next step.',
+    url: 'https://augustproducts.com',
+    tag: 'Commerce',
+    mark: 'AP',
+    tone: 'project-blue',
+  },
+  {
+    label: 'Operations · Product concept',
+    name: 'WareTrack',
+    description: 'A spatial warehouse concept focused on zones, inventory movement and operational visibility.',
+    url: 'https://github.com/DaveAust1n/new-work',
+    tag: 'Operations',
+    mark: 'WT',
+    tone: 'project-green',
+  },
+  {
+    label: 'Digital tools · Web application',
+    name: 'SetupPlug',
+    description: 'A focused web product exploring how practical digital tools can make setup and workflows simpler.',
+    url: 'https://setupplug.vercel.app',
+    tag: 'Web product',
+    mark: 'SP',
+    tone: 'project-clay',
+  },
+];
 
-    return () => observer.disconnect();
-  }, [threshold]);
-
-  return { ref, inView };
-}
-
-// Navbar Component
-function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
-    { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
-    { name: 'Process', href: '#process' },
-    { name: 'Contact', href: '#contact' },
-  ];
-
+function Brand({ light = false }: { light?: boolean }) {
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'glass-dark py-3' : 'bg-transparent py-5'
-    }`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-md bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center group-hover:scale-105 transition-transform">
-              <span className="font-display font-extrabold text-sm text-white tracking-tight">M.</span>
-            </div>
-            <span className="font-display font-bold text-xl">
-              Metro<span className="gradient-text">DEVOPS</span>
-            </span>
-          </a>
-
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-gray-300 hover:text-white transition-colors relative group text-sm font-medium"
-              >
-                {link.name}
-                <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-accent-blue to-accent-purple group-hover:w-full transition-all duration-300" />
-              </a>
-            ))}
-            <a
-              href="#contact"
-              className="px-5 py-2.5 bg-[#17483B] text-[#F1EDE2] rounded-lg font-semibold text-sm hover:bg-[#252D29] transition-colors shadow-md shadow-[#17483B]/15"
-            >
-              Get Started
-            </a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="md:hidden p-2 text-gray-300 hover:text-white"
-            aria-label="Toggle menu"
-          >
-            {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-white/10">
-            <div className="flex flex-col gap-4 pt-4">
-              {navLinks.map((link) => (
-                <a
-                  key={link.name}
-                  href={link.href}
-                  onClick={() => setIsOpen(false)}
-                  className="text-gray-300 hover:text-white transition-colors text-sm font-medium"
-                >
-                  {link.name}
-                </a>
-              ))}
-              <a
-                href="#contact"
-                onClick={() => setIsOpen(false)}
-                className="px-5 py-2.5 bg-[#17483B] text-[#F1EDE2] rounded-lg font-semibold text-sm text-center hover:bg-[#252D29] transition-colors"
-              >
-                Get Started
-              </a>
-            </div>
-          </div>
-        )}
-      </div>
-    </nav>
+    <a href="#home" className={`brand ${light ? 'brand-light' : ''}`} aria-label="MetroDEVOPS home">
+      <span className="brand-mark">M<span>.</span></span>
+      <span className="brand-name">Metro<span>DEVOPS</span></span>
+    </a>
   );
 }
 
-// Hero Section
+function Header() {
+  const [open, setOpen] = useState(false);
+  const links = [['Approach', '#approach'], ['Services', '#services'], ['Work', '#work'], ['Contact', '#contact']];
+  return (
+    <header className="site-header">
+      <div className="nav-shell">
+        <Brand />
+        <nav className={`main-nav ${open ? 'main-nav-open' : ''}`} aria-label="Main navigation">
+          {links.map(([label, href]) => <a key={label} href={href} onClick={() => setOpen(false)}>{label}</a>)}
+          <a className="nav-mobile-cta" href="#contact" onClick={() => setOpen(false)}>Start a project <ArrowUpRight size={16} /></a>
+        </nav>
+        <a className="nav-cta" href="#contact">Start a project <ArrowUpRight size={16} /></a>
+        <button className="menu-toggle" onClick={() => setOpen(!open)} aria-label={open ? 'Close menu' : 'Open menu'}>
+          {open ? <X /> : <Menu />}
+        </button>
+      </div>
+    </header>
+  );
+}
+
+function WebsiteSystemVisual() {
+  return (
+    <div className="system-visual" aria-label="Illustration of a website being edited and published">
+      <div className="visual-topbar">
+        <div className="window-dots"><i /><i /><i /></div>
+        <span>YOUR BUSINESS SITE</span>
+        <span className="live-pill"><i /> LIVE</span>
+      </div>
+      <div className="visual-body">
+        <aside className="visual-sidebar">
+          <div className="sidebar-brand"><span className="mini-brand">M</span><span>Site editor</span></div>
+          <div className="sidebar-item active"><PanelsTopLeft size={15} /> Page sections</div>
+          <div className="sidebar-item"><Layers3 size={15} /> Products & services</div>
+          <div className="sidebar-item"><Compass size={15} /> Site settings</div>
+          <div className="sidebar-note"><ShieldCheck size={16} /><span>Your content. Your control.</span></div>
+        </aside>
+        <div className="visual-preview">
+          <div className="preview-toolbar"><span>Home page</span><span className="preview-device"><MonitorSmartphone size={14} /> Responsive</span></div>
+          <div className="preview-site">
+            <div className="preview-nav"><span className="preview-logo">YOUR BRAND</span><span>About&nbsp;&nbsp; Services&nbsp;&nbsp; Contact</span></div>
+            <div className="preview-hero">
+              <span className="preview-eyebrow">MADE FOR YOUR BUSINESS</span>
+              <strong>A better way to<br />show up online.</strong>
+              <p>Keep your website up to date as your business grows.</p>
+              <span className="preview-button">Explore services <ArrowRight size={12} /></span>
+              <div className="preview-orbit orbit-one" /><div className="preview-orbit orbit-two" />
+            </div>
+            <div className="preview-cards"><i /><i /><i /></div>
+          </div>
+          <div className="edit-cursor"><span>Text block</span><i /></div>
+        </div>
+      </div>
+      <div className="visual-footer"><span><Check size={14} /> Draft saved</span><span className="publish-label"><span /> Publish changes <ArrowUpRight size={13} /></span></div>
+    </div>
+  );
+}
+
 function Hero() {
   return (
-    <section id="home" className="min-h-screen relative overflow-hidden flex items-center pt-20">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-accent-blue/20 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-accent-purple/20 rounded-full blur-3xl animate-pulse-slow animation-delay-2000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-r from-accent-blue/10 to-accent-purple/10 rounded-full blur-3xl" />
-
-        {/* Grid pattern */}
-        <div className="absolute inset-0 opacity-20" style={{
-          backgroundImage: `linear-gradient(rgba(59, 130, 246, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(59, 130, 246, 0.1) 1px, transparent 1px)`,
-          backgroundSize: '50px 50px'
-        }} />
-      </div>
-
-      {/* Floating Elements */}
-      <div className="absolute top-32 right-20 w-20 h-20 glass rounded-2xl flex items-center justify-center animate-float opacity-60 hidden lg:flex">
-        <Code className="w-8 h-8 text-accent-blue" />
-      </div>
-      <div className="absolute bottom-40 left-20 w-16 h-16 glass rounded-xl flex items-center justify-center animate-float-delayed opacity-60 hidden lg:flex">
-        <Globe className="w-6 h-6 text-accent-purple" />
-      </div>
-      <div className="absolute top-1/2 right-1/4 w-12 h-12 glass rounded-lg flex items-center justify-center animate-float opacity-50 hidden lg:flex">
-        <Smartphone className="w-5 h-5 text-accent-cyan" />
-      </div>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-8 animate-fade-in">
-            <span className="text-sm text-gray-300">Technology partner for African businesses</span>
+    <section id="home" className="hero">
+      <div className="hero-grid" />
+      <div className="hero-inner">
+        <div className="hero-copy">
+          <div className="eyebrow"><span className="eyebrow-line" /> DIGITAL INFRASTRUCTURE FOR AFRICAN BUSINESS</div>
+          <h1>Build your digital presence.<br /><span>Keep control of it.</span></h1>
+          <p className="hero-description">We build websites and business systems that do more than look good — they give you a practical foundation to grow, adapt and serve your customers.</p>
+          <div className="hero-actions">
+            <a className="button button-primary" href="#contact">Let's build something <ArrowUpRight size={18} /></a>
+            <a className="button button-quiet" href="#work">Explore our work <ArrowDownRight size={17} /></a>
           </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-display font-bold leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            Build better.
-            <br />
-            <span className="gradient-text">Grow smarter.</span>
-            <br />
-            Move forward.
-          </h1>
-
-          <p className="text-lg sm:text-xl text-gray-400 mb-10 max-w-2xl mx-auto animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-            We help ambitious African businesses build stronger digital foundations, streamline operations, and compete with confidence.
-          </p>
-
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
-            <a
-              href="#projects"
-              className="group px-8 py-4 bg-[#17483B] text-[#F1EDE2] rounded-xl font-semibold text-lg hover:bg-[#252D29] transition-colors shadow-md shadow-[#17483B]/15 flex items-center gap-2"
-            >
-              View My Work
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            <a
-              href="#contact"
-              className="px-8 py-4 bg-[#F1EDE2] text-[#17483B] rounded-xl font-semibold text-lg hover:bg-[#E4DFD3] transition-colors border border-[#17483B]/30 flex items-center gap-2"
-            >
-              Let's Build Your Next Step
-            </a>
-          </div>
+          <div className="hero-proof"><span className="proof-icon"><Check size={14} /></span><span>Built for your business. Designed to be maintained.</span></div>
         </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 scroll-indicator">
-          <ChevronDown className="w-6 h-6 text-gray-400" />
-        </div>
+        <div className="hero-art"><div className="art-orbit art-orbit-a" /><div className="art-orbit art-orbit-b" /><WebsiteSystemVisual /><div className="floating-label floating-label-one"><span className="floating-dot blue-dot" /> One shared system</div><div className="floating-label floating-label-two"><span className="floating-dot green-dot" /> Owner-friendly editing</div></div>
       </div>
+      <div className="hero-bottom"><span>WE BUILD FOR THE LONG TERM</span><a href="#approach">See how we work <ChevronRight size={15} /></a></div>
     </section>
   );
 }
 
-// About Section
-function About() {
-  const { ref, inView } = useInView();
-
+function Approach() {
+  const steps = [
+    { number: '01', title: 'Start with a strong foundation', text: 'We build on reusable, responsive components instead of treating every page as a disconnected one-off.', icon: Layers3 },
+    { number: '02', title: 'Make everyday edits simple', text: 'The goal is for owners to update text, images, services and products without waiting for a developer.', icon: PanelsTopLeft },
+    { number: '03', title: 'Publish with confidence', text: 'Drafts, previews and published content should be distinct, so changes are intentional and easier to manage.', icon: ShieldCheck },
+  ];
   return (
-    <section id="about" className="py-20 lg:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`grid lg:grid-cols-2 gap-12 lg:gap-20 items-center transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Image/Visual Side */}
-          <div className="relative">
-            <div className="aspect-square max-w-lg mx-auto relative">
-              <div className="absolute inset-0 bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 rounded-3xl rotate-6" />
-              <div className="absolute inset-0 glass rounded-3xl overflow-hidden">
-                <div className="absolute inset-0 p-8">
-                  {/* Code-inspired visual */}
-                  <div className="space-y-4 font-mono text-sm">
-                    <div className="flex gap-2">
-                      <span className="text-accent-purple">const</span>
-                      <span className="text-white">website</span>
-                      <span className="text-gray-500">=</span>
-                      <span className="text-accent-blue">{"{"}</span>
-                    </div>
-                    <div className="pl-4 space-y-2">
-                      <div>
-                        <span className="text-accent-cyan">design</span>
-                        <span className="text-gray-500">:</span>
-                        <span className="text-green-400"> "modern"</span>
-                        <span className="text-gray-500">,</span>
-                      </div>
-                      <div>
-                        <span className="text-accent-cyan">performance</span>
-                        <span className="text-gray-500">:</span>
-                        <span className="text-green-400"> "fast"</span>
-                        <span className="text-gray-500">,</span>
-                      </div>
-                      <div>
-                        <span className="text-accent-cyan">responsive</span>
-                        <span className="text-gray-500">:</span>
-                        <span className="text-orange-400"> true</span>
-                        <span className="text-gray-500">,</span>
-                      </div>
-                      <div>
-                        <span className="text-accent-cyan">seo</span>
-                        <span className="text-gray-500">:</span>
-                        <span className="text-orange-400"> "optimized"</span>
-                      </div>
-                    </div>
-                    <div className="text-accent-blue">{"}"}</div>
-                  </div>
-                </div>
-                {/* Decorative elements */}
-                <div className="absolute top-4 right-4 w-3 h-3 rounded-full bg-accent-blue" />
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <div className="w-3 h-3 rounded-full bg-red-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-green-500/80" />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Content Side */}
-          <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-              <Users className="w-4 h-4 text-accent-blue" />
-              <span className="text-sm text-gray-300">About Us</span>
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-              About <span className="gradient-text">MetroDEVOPS</span>
-            </h2>
-
-            <p className="text-gray-400 text-lg mb-6 leading-relaxed">
-              MetroDEVOPS helps businesses turn technology into a practical advantage — from a credible digital presence to the systems that support their next stage of growth.
-            </p>
-
-            <p className="text-gray-500 mb-8 leading-relaxed">
-              We build digital experiences and business tools around your goals, your customers, and the way your business actually works.
-            </p>
-
-            <p className="text-gray-500 mb-8 leading-relaxed">
-              Every project is grounded in clear communication, reliable delivery, and room to grow.
-            </p>
-
-            <div className="grid grid-cols-2 gap-6">
-              <div className="glass rounded-xl p-4 hover-glow transition-all">
-                <div className="text-xl font-bold gradient-text mb-1">Business-first</div>
-                <div className="text-sm text-gray-400">Built around your goals</div>
-              </div>
-              <div className="glass rounded-xl p-4 hover-glow transition-all">
-                <div className="text-xl font-bold gradient-text mb-1">Mobile-ready</div>
-                <div className="text-sm text-gray-400">Designed for every screen</div>
-              </div>
-              <div className="glass rounded-xl p-4 hover-glow transition-all">
-                <div className="text-xl font-bold gradient-text mb-1">SEO-conscious</div>
-                <div className="text-sm text-gray-400">Strong technical foundations</div>
-              </div>
-              <div className="glass rounded-xl p-4 hover-glow transition-all">
-                <div className="text-xl font-bold gradient-text mb-1">Direct support</div>
-                <div className="text-sm text-gray-400">Clear communication</div>
-              </div>
-            </div>
-          </div>
+    <section id="approach" className="section approach-section">
+      <div className="section-shell">
+        <div className="section-heading">
+          <p className="section-kicker">A better way to build</p>
+          <h2>A website should be a tool you <span>own</span> — not a problem you inherit.</h2>
+          <p>Our approach is built around a simple idea: business owners should be able to keep their digital presence current without learning how to code.</p>
+        </div>
+        <div className="approach-grid">
+          {steps.map(({ number, title, text, icon: Icon }) => <article className="approach-card" key={number}>
+            <div className="approach-card-top"><span>{number}</span><Icon size={21} strokeWidth={1.7} /></div>
+            <h3>{title}</h3><p>{text}</p><div className="card-rule" />
+          </article>)}
+        </div>
+        <div className="architecture-strip">
+          <div className="architecture-icon"><Code2 size={22} /></div>
+          <div><strong>One shared architecture. Different kinds of business.</strong><p>Reusable page sections, structured content and a consistent editing experience — tailored to each website.</p></div>
+          <a href={HUB} target="_blank" rel="noreferrer">Explore the Hub <ArrowUpRight size={16} /></a>
         </div>
       </div>
     </section>
   );
 }
 
-// Services Section
 function Services() {
-  const { ref, inView } = useInView();
-  const [hubServices, setHubServices] = useState<Array<{ name: string; description: string | null }>>([]);
-
+  const [hubServices, setHubServices] = useState<Service[]>([]);
   useEffect(() => {
     let active = true;
-    loadWebsiteServices()
-      .then((data) => {
-        if (active) setHubServices(data.map((service: { name: string; description: string | null }) => ({
-          name: service.name,
-          description: service.description,
-        })));
-      })
-      .catch((error: unknown) => console.error('MetroDEVOPS Hub services failed to load:', error));
+    loadWebsiteServices().then((rows) => { if (active) setHubServices(rows); }).catch((error: unknown) => {
+      console.info('Using MetroDEVOPS service catalogue fallback.', error);
+    });
     return () => { active = false; };
   }, []);
-
-  const groups = [
-    { title: 'Digital Foundations', intro: 'Build a credible online presence customers can find, trust and use.', icon: Globe, services: [
-      ['Business Websites', 'Professional websites that explain your offer and turn visitors into enquiries.'],
-      ['E-commerce Websites', 'Online stores with product catalogues, shopping carts and checkout or enquiry flows.'],
-      ['Landing Pages', 'Focused pages for campaigns, launches and specific services.'],
-      ['Portfolio & Personal Websites', 'Present your work, expertise and achievements professionally.'],
-      ['Website Redesigns', 'Improve an existing site’s design, structure, clarity and mobile experience.'],
-      ['Custom Domains & Deployment', 'Connect a website to a custom domain and publish it properly.'],
-      ['Business Email Setup', 'Set up a professional email identity for your business domain.'],
-      ['Website Maintenance', 'Content updates, fixes and ongoing improvements for existing websites.'],
-      ['Search Visibility & SEO Foundations', 'Improve page structure, metadata, indexing and technical discoverability.'],
-      ['UI Implementation & Responsive Design', 'Deliver mobile-friendly interfaces across screen sizes.'],
-    ] },
-    { title: 'Business Systems', intro: 'Make everyday operations more organized, connected and efficient.', icon: Monitor, services: [
-      ['Custom Web Applications', 'Build browser-based tools around your business workflow.'],
-      ['Business Dashboards', 'Bring useful operational information into one clear interface.'],
-      ['Content Management & Website Hub', 'Update website text, services, products and images without editing code.'],
-      ['Workflow Automation', 'Reduce repetitive admin tasks by connecting the steps your team follows.'],
-      ['System Integrations', 'Connect compatible apps, APIs and data sources to reduce duplicate work.'],
-      ['Booking & Enquiry Systems', 'Give customers a clearer way to request appointments or submit enquiries.'],
-      ['Product & Service Catalogues', 'Organize offerings and help customers browse them.'],
-      ['Database-Backed Websites', 'Add structured data and backend functionality where the project needs it.'],
-    ] },
-    { title: 'Intelligent Technology', intro: 'Apply AI where it solves a real customer or business problem.', icon: Sparkles, services: [
-      ['AI Customer-Service Agents', 'Help answer common questions and guide customers to the right next step.'],
-      ['Website Chatbots', 'Add a conversational support layer to a business website.'],
-      ['WhatsApp Business Automation', 'Support suitable customer enquiries and repetitive messaging workflows.'],
-      ['AI Integrations', 'Connect AI capabilities to digital products and business processes.'],
-      ['Lead Capture & Qualification', 'Collect enquiry details and help route prospective customers.'],
-      ['AI-Assisted Business Workflows', 'Use AI for practical tasks such as drafting, classification and information retrieval.'],
-    ] },
-  ] as const;
-
-  const hubExtras = hubServices.filter((service) =>
-    !groups.some((group) => group.services.some(([name]) => name.toLowerCase() === service.name.toLowerCase()))
-  );
-
+  const groups = serviceGroups.map((group) => ({
+    ...group,
+    items: group.items.map(([name, description]) => {
+      const match = hubServices.find((item) => item.name.toLowerCase() === name.toLowerCase());
+      return [name, match?.description || description] as [string, string];
+    }),
+  }));
+  const extraServices = hubServices.filter((service) => !groups.some((group) => group.items.some(([name]) => name.toLowerCase() === service.name.toLowerCase())));
   return (
-    <section id="services" className="py-20 lg:py-28 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`max-w-3xl mb-14 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-          <p className="text-sm font-semibold tracking-[0.18em] uppercase text-[#B85E3F] mb-4">What we do</p>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-5">Technology that works for <span className="gradient-text">your business.</span></h2>
-          <p className="text-lg text-gray-400">From your first professional website to connected business systems and practical AI, MetroDEVOPS helps African businesses move forward with technology.</p>
+    <section id="services" className="section services-section">
+      <div className="section-shell">
+        <div className="section-heading section-heading-row"><div><p className="section-kicker">What we do</p><h2>Technology that <span>moves work forward.</span></h2></div><p>Start with the challenge in front of you. We’ll help you choose the right digital solution — without making it more complicated than it needs to be.</p></div>
+        <div className="service-groups">
+          {groups.map(({ number, title, intro, icon: Icon, items }) => <div className="service-group" key={number}>
+            <div className="service-group-head"><span className="service-number">{number}</span><div className="service-group-title"><div className="service-title-line"><Icon size={19} /><h3>{title}</h3></div><p>{intro}</p></div></div>
+            <div className="service-list">{items.map(([name, description]) => <article className="service-item" key={name}><span className="service-check"><Check size={14} /></span><div><h4>{name}</h4><p>{description}</p></div><ArrowUpRight className="service-arrow" size={16} /></article>)}</div>
+          </div>)}
         </div>
-        <div className="space-y-14">
-          {groups.map((group) => (
-            <div key={group.title}>
-              <div className="flex items-start gap-4 mb-6">
-                <div className="w-11 h-11 shrink-0 rounded-xl bg-[#17483B] text-[#F1EDE2] flex items-center justify-center"><group.icon className="w-5 h-5" /></div>
-                <div><h3 className="text-2xl font-bold mb-1">{group.title}</h3><p className="text-gray-400">{group.intro}</p></div>
-              </div>
-              <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {group.services.map(([title, desc]) => (
-                  <article key={title} className="service-card rounded-xl border border-[#17483B]/15 bg-white/75 p-5 transition-all duration-200">
-                    <h4 className="font-semibold text-[#252D29] mb-2">{title}</h4><p className="text-sm leading-6 text-[#53635A]">{desc}</p>
-                  </article>
-                ))}
-              </div>
-            </div>
-          ))}
-          {hubExtras.length > 0 && <div><h3 className="text-2xl font-bold mb-6">More services</h3><div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {hubExtras.map((service) => <article key={service.name} className="service-card rounded-xl border border-[#17483B]/15 bg-white/75 p-5"><h4 className="font-semibold text-[#252D29] mb-2">{service.name}</h4><p className="text-sm leading-6 text-[#53635A]">{service.description || 'Talk to us about how this service can support your business.'}</p></article>)}
-          </div></div>}
-        </div>
-        <div className="mt-12 rounded-2xl bg-[#17483B] p-7 sm:p-9 flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-          <div><h3 className="text-xl sm:text-2xl font-bold text-[#F1EDE2] mb-2">Not sure what your business needs?</h3><p className="text-[#F1EDE2]/80">Tell us what you are trying to improve. We’ll help you identify a practical next step.</p></div>
-          <a href="#contact" className="inline-flex items-center justify-center gap-2 rounded-lg bg-[#F1EDE2] px-6 py-3 font-semibold text-[#17483B] hover:bg-white transition-colors whitespace-nowrap">Discuss your project <ArrowRight className="w-4 h-4" /></a>
-        </div>
+        {extraServices.length > 0 && <div className="extra-services"><span>MORE FROM OUR HUB CATALOGUE</span>{extraServices.slice(0, 6).map((item) => <span key={item.name}>{item.name}</span>)}</div>}
       </div>
     </section>
   );
 }
 
-// Projects Section
-function Projects() {
-  const { ref, inView } = useInView();
-
-  const projects = [
-    {
-      title: 'WareTrack',
-      desc: 'A spatial warehouse management interface for organizing warehouse zones, viewing stock locations and recording stock operations.',
-      image: '',
-      liveUrl: 'https://waretrack-3d.vercel.app',
-      tags: ['Warehouse Management', 'Inventory Systems'],
-    },
-    {
-      title: 'SetupLug',
-      desc: 'A web platform built to make the SetupLug service accessible online.',
-      image: '',
-      liveUrl: 'https://setuplug.vercel.app',
-      tags: ['Web Application', 'Digital Platform'],
-    },
-    {
-      title: 'August Products',
-      desc: 'A business website built to present products and make it easier for customers to explore the brand.',
-      image: '',
-      liveUrl: 'https://augustproducts.com',
-      tags: ['Business Website', 'Product Showcase'],
-    },
-    {
-      title: 'Genesis Autos',
-      desc: 'An automotive spare-parts website designed to showcase products and support online enquiries and shopping.',
-      image: '',
-      liveUrl: 'https://genesisautos.org',
-      tags: ['Automotive', 'E-commerce'],
-    },
-  ];
-
+function Work() {
   return (
-    <section id="projects" className="py-20 lg:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <Star className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">Our Work</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-            Featured <span className="gradient-text">Projects</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Explore some of our recent projects that showcase our expertise in modern web development.
-          </p>
+    <section id="work" className="section work-section">
+      <div className="section-shell">
+        <div className="section-heading section-heading-row"><div><p className="section-kicker">Selected work & experiments</p><h2>Ideas made <span>useful.</span></h2></div><p>We explore practical digital experiences — from product-led websites to tools that help businesses organize their operations.</p></div>
+        <div className="project-grid">
+          {projects.map((project, index) => <a className="project-card" href={project.url} target="_blank" rel="noreferrer" key={project.name}>
+            <div className={`project-art ${project.tone}`}><div className="project-art-grid" /><span className="project-index">0{index + 1} / 03</span><span className="project-monogram">{project.mark}</span><span className="project-open"><ArrowUpRight size={18} /></span><span className="project-art-label">{project.tag}</span></div>
+            <div className="project-copy"><span className="project-label">{project.label}</span><h3>{project.name}</h3><p>{project.description}</p><span className="project-link">Explore project <MoveRight size={15} /></span></div>
+          </a>)}
         </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, index) => (
-            <div
-              key={project.title}
-              className={`group glass rounded-2xl overflow-hidden hover-glow transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <div className="relative aspect-[4/3] overflow-hidden">
-                {project.liveUrl ? (
-                  <iframe
-                    src={project.liveUrl}
-                    title={`${project.title} live website preview`}
-                    className="w-full h-full bg-white border-0"
-                    loading="lazy"
-                    referrerPolicy="strict-origin-when-cross-origin"
-                    sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
-                  />
-                ) : project.image ? (
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    loading="lazy"
-                  />
-                ) : (
-                  <div className="w-full h-full bg-[#252D29] flex items-center justify-center">
-                    <Globe className="w-12 h-12 text-[#C4CE83]/70" aria-hidden="true" />
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900/90 via-dark-900/30 to-transparent opacity-60 group-hover:opacity-80 transition-opacity" />
-                <div className="absolute bottom-4 left-4 right-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span key={tag} className="px-3 py-1 text-xs font-medium bg-white/10 backdrop-blur-sm rounded-full">
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold text-white mb-2 group-hover:text-accent-blue transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-gray-400 text-sm mb-4 line-clamp-2">{project.desc}</p>
-                {project.liveUrl ? (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-accent-blue hover:text-accent-purple transition-colors font-medium text-sm group/link"
-                  >
-                    Visit Live Site
-                    <ExternalLink className="w-4 h-4 group-hover/link:translate-y-[-2px] transition-transform" />
-                  </a>
-                ) : (
-                  <span className="inline-flex items-center gap-2 text-[#C4CE83] font-medium text-sm">
-                    In Progress
-                  </span>
-                )}
-              </div>
-            </div>
-          ))}
-        </div>
+        <p className="work-note">A mix of shipped work and product explorations. Scope and capabilities vary by project.</p>
       </div>
     </section>
   );
 }
 
-// Why Choose Us Section
-function WhyChooseUs() {
-  const { ref, inView } = useInView();
-
-  const features = [
-    { icon: Palette, title: 'Modern UI/UX', desc: 'Beautiful, intuitive designs that captivate users' },
-    { icon: Smartphone, title: 'Mobile Responsive', desc: 'Perfect on every device and screen size' },
-    { icon: Zap, title: 'Fast Performance', desc: 'Optimized for speed and smooth experience' },
-    { icon: Search, title: 'SEO Ready', desc: 'Built to rank and be found online' },
-    { icon: Shield, title: 'Secure Development', desc: 'Security-first approach in every project' },
-    { icon: DollarSign, title: 'Affordable Solutions', desc: 'Quality services at competitive prices' },
-    { icon: Code, title: 'Clean Code', desc: 'Maintainable, scalable, and well-documented' },
-    { icon: Headphones, title: 'Ongoing Support', desc: 'Dedicated support and maintenance' },
-  ];
-
-  return (
-    <section id="why-us" className="py-20 lg:py-32 relative bg-dark-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <CheckCircle className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">Why Us</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-            Why Choose <span className="gradient-text">MetroDEVOPS</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            We're committed to delivering excellence in every project we undertake.
-          </p>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
-            <div
-              key={feature.title}
-              className={`text-center p-6 transition-all duration-500 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${index * 75}ms` }}
-            >
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center mx-auto mb-4 hover:scale-110 transition-transform shadow-lg shadow-accent-blue/20">
-                <feature.icon className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="font-semibold text-white mb-2">{feature.title}</h3>
-              <p className="text-sm text-gray-400">{feature.desc}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// Process Section
 function Process() {
-  const { ref, inView } = useInView();
-
-  const steps = [
-    { icon: Lightbulb, title: 'Discovery', desc: 'Understanding your goals, audience, and requirements' },
-    { icon: Target, title: 'Planning', desc: 'Creating a strategic roadmap for your project' },
-    { icon: Palette, title: 'Design', desc: 'Crafting beautiful mockups and user interfaces' },
-    { icon: Code, title: 'Development', desc: 'Building your website with modern technologies' },
-    { icon: TestTube, title: 'Testing', desc: 'Rigorous testing for quality and performance' },
-    { icon: Rocket, title: 'Launch', desc: 'Deploying your website to the world' },
-    { icon: HelpCircle, title: 'Support', desc: 'Ongoing maintenance and support' },
+  const items = [
+    ['Listen', 'Understand the business, the customer and the actual problem to solve.'],
+    ['Shape', 'Agree the right scope, structure and priorities before building.'],
+    ['Build', 'Create, test and refine a responsive solution around those priorities.'],
+    ['Hand over & improve', 'Explain how to use it, then keep improving where ongoing support is needed.'],
   ];
-
-  return (
-    <section id="process" className="py-20 lg:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <Clock className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">Our Process</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-            Development <span className="gradient-text">Process</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Our streamlined process ensures your project is delivered on time and exceeds expectations.
-          </p>
-        </div>
-
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-accent-blue via-accent-purple to-accent-blue" />
-
-          <div className="space-y-12">
-            {steps.map((step, index) => (
-              <div
-                key={step.title}
-                className={`relative flex flex-col lg:flex-row items-center gap-6 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                style={{ transitionDelay: `${index * 100}ms` }}
-              >
-                {/* Left Content (even) */}
-                {index % 2 === 0 && <div className="lg:w-1/2 lg:pr-12 lg:text-right order-2 lg:order-1">
-                  <div className="glass rounded-2xl p-6 hover-glow">
-                    <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                    <p className="text-gray-400">{step.desc}</p>
-                  </div>
-                </div>}
-
-                {/* Center Icon */}
-                <div className="relative z-10 order-1 lg:order-2">
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center shadow-lg shadow-accent-blue/30">
-                    <step.icon className="w-6 h-6 text-white" />
-                  </div>
-                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 glass rounded-full text-xs font-bold">
-                    {String(index + 1).padStart(2, '0')}
-                  </div>
-                </div>
-
-                {/* Right Content (odd) */}
-                {index % 2 !== 0 && <div className="lg:w-1/2 lg:pl-12 order-2 lg:order-3">
-                  <div className="glass rounded-2xl p-6 hover-glow">
-                    <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                    <p className="text-gray-400">{step.desc}</p>
-                  </div>
-                </div>}
-
-                {/* Mobile Content */}
-                <div className="lg:hidden glass rounded-2xl p-6 w-full">
-                  <h3 className="text-xl font-semibold text-white mb-2">{step.title}</h3>
-                  <p className="text-gray-400 text-sm">{step.desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
+  return <section className="process-section"><div className="section-shell process-inner"><div className="process-intro"><p className="section-kicker">How we work</p><h2>Clear steps.<br /><span>Useful outcomes.</span></h2><p>No mystery process. You know what we’re building, why it matters and what happens next.</p></div><div className="process-steps">{items.map(([title, text], i) => <div className="process-step" key={title}><span className="process-number">0{i + 1}</span><div><h3>{title}</h3><p>{text}</p></div></div>)}</div></div></section>;
 }
 
-// What to Expect Section
-function WhatToExpect() {
-  const { ref, inView } = useInView();
-
-  const expectations = [
-    {
-      icon: Target,
-      title: 'A clear project scope',
-      content: 'We start by understanding your business, audience, goals, and the features your website actually needs.',
-    },
-    {
-      icon: Smartphone,
-      title: 'A mobile-friendly experience',
-      content: 'Your website is planned to work across phones, tablets, and desktop screens so customers can browse comfortably.',
-    },
-    {
-      icon: Search,
-      title: 'Search-friendly foundations',
-      content: 'We pay attention to page titles, useful content, crawlable links, performance, and other technical SEO basics.',
-    },
-  ];
-
-  return (
-    <section id="what-to-expect" className="py-20 lg:py-32 relative bg-dark-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <CheckCircle className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">What to Expect</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-            Built Around <span className="gradient-text">Your Business</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            A practical website project should do more than look good. It should help customers understand your offer and take the next step.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {expectations.map((item, index) => (
-            <div
-              key={item.title}
-              className={`glass rounded-2xl p-8 transition-all duration-500 hover-glow ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${index * 120}ms` }}
-            >
-              <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center mb-6">
-                <item.icon className="w-7 h-7 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">{item.title}</h3>
-              <p className="text-gray-400 leading-relaxed">{item.content}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// Technologies Section
-function Technologies() {
-  const { ref, inView } = useInView();
-
-  const techs = [
-    { name: 'HTML5', icon: '📄', color: 'from-orange-500 to-orange-600' },
-    { name: 'CSS3', icon: '🎨', color: 'from-blue-500 to-blue-600' },
-    { name: 'JavaScript', icon: '⚡', color: 'from-yellow-400 to-yellow-500' },
-    { name: 'React', icon: '⚛️', color: 'from-cyan-400 to-cyan-500' },
-    { name: 'Node.js', icon: '🟢', color: 'from-green-500 to-green-600' },
-    { name: 'WordPress', icon: '📝', color: 'from-blue-600 to-blue-700' },
-    { name: 'Git', icon: '🔀', color: 'from-orange-500 to-red-500' },
-    { name: 'GitHub', icon: '🐙', color: 'from-gray-600 to-gray-700' },
-  ];
-
-  return (
-    <section id="technologies" className="py-20 lg:py-32 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <Code className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">Tech Stack</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-            Technologies <span className="gradient-text">We Use</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            We leverage modern tools and technologies to build fast, secure, and scalable web solutions.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-6">
-          {techs.map((tech, index) => (
-            <div
-              key={tech.name}
-              className={`glass rounded-2xl p-6 text-center hover-glow transition-all duration-500 group cursor-pointer ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-              style={{ transitionDelay: `${index * 50}ms` }}
-            >
-              <div className="text-4xl mb-3 group-hover:scale-110 transition-transform">{tech.icon}</div>
-              <div className="text-sm font-medium text-gray-300">{tech.name}</div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// Contact Section
 function Contact() {
-  const { ref, inView } = useInView();
-  const [formState, setFormState] = useState({
-    name: '',
-    businessName: '',
-    email: '',
-    phone: '',
-    projectType: '',
-    message: '',
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
-
-  const validateForm = () => {
-    const errors: Record<string, string> = {};
-
-    if (!formState.name.trim()) {
-      errors.name = 'Name is required';
-    } else if (formState.name.trim().length < 2) {
-      errors.name = 'Name must be at least 2 characters';
-    }
-
-    if (!formState.email.trim()) {
-      errors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formState.email)) {
-      errors.email = 'Please enter a valid email address';
-    }
-
-    if (!formState.phone.trim()) {
-      errors.phone = 'Phone number is required';
-    }
-
-    if (!formState.projectType) {
-      errors.projectType = 'Please select a project type';
-    }
-
-    if (!formState.message.trim()) {
-      errors.message = 'Message is required';
-    } else if (formState.message.trim().length < 10) {
-      errors.message = 'Message must be at least 10 characters';
-    }
-
-    setFormErrors(errors);
-    return Object.keys(errors).length === 0;
-  };
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setSubmitError(null);
-
-    if (!validateForm()) {
-      return;
-    }
-
-    setIsSubmitting(true);
-
-    const templateParams = {
-      name: formState.name,
-      business_name: formState.businessName || 'Not provided',
-      email: formState.email,
-      phone: formState.phone,
-      project_type: formState.projectType,
-      message: formState.message,
-      _subject: `New MetroDEVOPS project enquiry from ${formState.name}`,
-      _template: 'table',
-    };
-
-    try {
-      const response = await fetch('https://formsubmit.co/ajax/igweonyiachisom1@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify(templateParams),
-      });
-
-      const result = await response.json();
-      if (!response.ok || result.success !== 'true') {
-        throw new Error(result.message || 'The email service did not accept the message.');
-      }
-
-      setIsSubmitted(true);
-      setFormState({
-        name: '',
-        businessName: '',
-        email: '',
-        phone: '',
-        projectType: '',
-        message: '',
-      });
-    } catch (error) {
-      console.error('Contact form submission error:', error);
-      setSubmitError('Your message could not be sent right now. Please try again or contact us directly via WhatsApp.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  const handleInputChange = (field: string, value: string) => {
-    setFormState({ ...formState, [field]: value });
-    if (formErrors[field]) {
-      setFormErrors({ ...formErrors, [field]: '' });
-    }
-    if (submitError) {
-      setSubmitError(null);
-    }
-  };
-
-  const handleTryAgain = () => {
-    setSubmitError(null);
-    setIsSubmitted(false);
-  };
-
-  const contactInfo = [
-    { icon: Phone, label: 'WhatsApp', value: '09163197774', href: 'https://wa.me/2349163197774' },
-    { icon: Instagram, label: 'Instagram', value: '@m6tr_0', href: 'https://instagram.com/m6tr_0' },
-    { icon: Music, label: 'TikTok', value: '@metrothedeveloper', href: 'https://tiktok.com/@metrothedeveloper' },
-  ];
-
   return (
-    <section id="contact" className="py-20 lg:py-32 relative bg-dark-800/50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div ref={ref} className={`text-center mb-16 transition-all duration-1000 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          <div className="inline-flex items-center gap-2 px-4 py-2 glass rounded-full mb-6">
-            <Send className="w-4 h-4 text-accent-blue" />
-            <span className="text-sm text-gray-300">Get In Touch</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-display font-bold mb-6">
-            Let's Build Something <span className="gradient-text">Amazing</span>
-          </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Have a project in mind? Tell us what your business needs and we’ll help you choose a practical digital solution.
-          </p>
-        </div>
-
-        <div className={`grid lg:grid-cols-2 gap-12 transition-all duration-1000 delay-300 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-          {/* Contact Form */}
-          <div className="glass rounded-2xl p-8 lg:p-10">
-            {isSubmitted ? (
-              <div className="text-center py-12">
-                <div className="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-6 animate-scale-in">
-                  <CheckCircle className="w-10 h-10 text-green-400" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Thanks for reaching out!</h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">Your message has been sent successfully. I'll get back to you soon.</p>
-                <button
-                  onClick={() => setIsSubmitted(false)}
-                  className="px-6 py-3 bg-[#17483B] text-[#F1EDE2] rounded-lg font-semibold hover:bg-[#252D29] transition-colors"
-                >
-                  Send Another Message
-                </button>
-              </div>
-            ) : submitError ? (
-              <div className="text-center py-12">
-                <div className="w-20 h-20 rounded-full bg-red-500/20 flex items-center justify-center mx-auto mb-6">
-                  <AlertCircle className="w-10 h-10 text-red-400" />
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-4">Oops! Something went wrong</h3>
-                <p className="text-gray-400 mb-6 leading-relaxed">{submitError}</p>
-                <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button
-                    onClick={handleTryAgain}
-                    className="px-6 py-3 bg-[#17483B] text-[#F1EDE2] rounded-lg font-semibold hover:bg-[#252D29] transition-colors"
-                  >
-                    Try Again
-                  </button>
-                  <a
-                    href="https://wa.me/2349163197774"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-6 py-3 glass border border-white/20 rounded-lg font-medium hover:bg-white/10 transition-colors"
-                  >
-                    Contact via WhatsApp
-                  </a>
-                </div>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Full Name *</label>
-                    <input
-                      type="text"
-                      required
-                      value={formState.name}
-                      onChange={(e) => handleInputChange('name', e.target.value)}
-                      className={`w-full px-4 py-3 bg-dark-700 border rounded-xl text-white placeholder-gray-500 focus:border-accent-blue transition-colors ${formErrors.name ? 'border-red-500' : 'border-white/10'}`}
-                      placeholder="John Doe"
-                    />
-                    {formErrors.name && <p className="mt-1 text-sm text-red-400">{formErrors.name}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Business Name</label>
-                    <input
-                      type="text"
-                      value={formState.businessName}
-                      onChange={(e) => handleInputChange('businessName', e.target.value)}
-                      className="w-full px-4 py-3 bg-dark-700 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:border-accent-blue transition-colors"
-                      placeholder="Acme Inc. (optional)"
-                    />
-                  </div>
-                </div>
-
-                <div className="grid sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Email Address *</label>
-                    <input
-                      type="email"
-                      required
-                      value={formState.email}
-                      onChange={(e) => handleInputChange('email', e.target.value)}
-                      className={`w-full px-4 py-3 bg-dark-700 border rounded-xl text-white placeholder-gray-500 focus:border-accent-blue transition-colors ${formErrors.email ? 'border-red-500' : 'border-white/10'}`}
-                      placeholder="john@example.com"
-                    />
-                    {formErrors.email && <p className="mt-1 text-sm text-red-400">{formErrors.email}</p>}
-                  </div>
-                  <div>
-                    <label className="block text-sm font-medium text-gray-300 mb-2">Phone Number / WhatsApp *</label>
-                    <input
-                      type="tel"
-                      required
-                      value={formState.phone}
-                      onChange={(e) => handleInputChange('phone', e.target.value)}
-                      className={`w-full px-4 py-3 bg-dark-700 border rounded-xl text-white placeholder-gray-500 focus:border-accent-blue transition-colors ${formErrors.phone ? 'border-red-500' : 'border-white/10'}`}
-                      placeholder="+234 xxx xxx xxxx"
-                    />
-                    {formErrors.phone && <p className="mt-1 text-sm text-red-400">{formErrors.phone}</p>}
-                  </div>
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Project Type *</label>
-                  <select
-                    required
-                    value={formState.projectType}
-                    onChange={(e) => handleInputChange('projectType', e.target.value)}
-                    className={`w-full px-4 py-3 bg-dark-700 border rounded-xl text-white focus:border-accent-blue transition-colors ${formErrors.projectType ? 'border-red-500' : 'border-white/10'}`}
-                  >
-                    <option value="">Select a project type</option>
-                    <option value="Business Website">Business Website</option>
-                    <option value="Landing Page">Landing Page</option>
-                    <option value="Portfolio Website">Portfolio Website</option>
-                    <option value="E-commerce Website">E-commerce Website</option>
-                    <option value="Web Application">Web Application</option>
-                    <option value="Website Redesign">Website Redesign</option>
-                    <option value="Not Sure Yet">Not Sure Yet</option>
-                  </select>
-                  {formErrors.projectType && <p className="mt-1 text-sm text-red-400">{formErrors.projectType}</p>}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-medium text-gray-300 mb-2">Tell me about your project *</label>
-                  <textarea
-                    required
-                    rows={4}
-                    value={formState.message}
-                    onChange={(e) => handleInputChange('message', e.target.value)}
-                    className={`w-full px-4 py-3 bg-dark-700 border rounded-xl text-white placeholder-gray-500 focus:border-accent-blue transition-colors resize-none ${formErrors.message ? 'border-red-500' : 'border-white/10'}`}
-                    placeholder="Tell us about your project..."
-                  />
-                  {formErrors.message && <p className="mt-1 text-sm text-red-400">{formErrors.message}</p>}
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full py-4 bg-[#17483B] text-[#F1EDE2] rounded-xl font-semibold text-lg hover:bg-[#252D29] transition-colors shadow-md shadow-[#17483B]/15 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                >
-                  {isSubmitting ? (
-                    <>
-                      <div className="loading-spinner w-5 h-5" />
-                      Sending...
-                    </>
-                  ) : (
-                    <>
-                      Send Message
-                      <Send className="w-5 h-5" />
-                    </>
-                  )}
-                </button>
-              </form>
-            )}
-          </div>
-
-          {/* Contact Info */}
-          <div className="space-y-8">
-            <div className="glass rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
-              <div className="space-y-6">
-                {contactInfo.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-4 group"
-                  >
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-blue/20 to-accent-purple/20 flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <item.icon className="w-5 h-5 text-accent-blue" />
-                    </div>
-                    <div>
-                      <div className="text-sm text-gray-400">{item.label}</div>
-                      <div className="text-white font-medium group-hover:text-accent-blue transition-colors">{item.value}</div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass rounded-2xl p-8">
-              <h3 className="text-xl font-bold text-white mb-4">Connect With Us</h3>
-              <div className="flex gap-4">
-                {[
-                  { Icon: Instagram, label: 'Instagram', href: 'https://instagram.com/m6tr_0' },
-                  { Icon: Github, label: 'GitHub', href: 'https://github.com/DaveAust1n' },
-                  { Icon: Music, label: 'TikTok', href: 'https://tiktok.com/@metrothedeveloper' },
-                ].map(({ Icon, label, href }) => (
-                  <a
-                    key={label}
-                    href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={label}
-                    className="w-12 h-12 rounded-xl bg-dark-700 flex items-center justify-center hover:bg-gradient-to-br hover:from-accent-blue hover:to-accent-purple transition-all duration-300 group"
-                  >
-                    <Icon className="w-5 h-5 text-gray-400 group-hover:text-white transition-colors" />
-                  </a>
-                ))}
-              </div>
-            </div>
-
-            <div className="glass rounded-2xl p-8 bg-gradient-to-br from-accent-blue/10 to-accent-purple/10">
-              <h3 className="text-xl font-bold text-white mb-4">Quick Response</h3>
-              <p className="text-gray-400 text-sm">
-                We typically respond within 24 hours. For urgent inquiries, reach out via WhatsApp for faster assistance.
-              </p>
-            </div>
-          </div>
-        </div>
+    <section id="contact" className="contact-section">
+      <div className="section-shell">
+        <div className="contact-panel"><div className="contact-grid" /><div className="contact-copy"><p className="section-kicker section-kicker-light">Your next step starts here</p><h2>Let's build something<br /><span>your business can grow with.</span></h2><p>Tell us what you’re trying to improve. We’ll talk through the best next step and a sensible scope for your business.</p><div className="contact-actions"><a className="button button-light" href={WHATSAPP} target="_blank" rel="noreferrer">Talk to MetroDEVOPS <ArrowUpRight size={18} /></a><a className="contact-email" href="mailto:hello@metrodevops.com">Prefer email? Get in touch</a></div></div><div className="contact-stamp"><Zap size={23} /><span>Build with purpose.</span><span>Grow with control.</span></div></div>
       </div>
     </section>
   );
 }
 
-// Footer
 function Footer() {
-  const quickLinks = ['Home', 'About', 'Services', 'Projects', 'Contact'];
-
-  return (
-    <footer className="py-16 border-t border-white/10">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-8 mb-12">
-          {/* Brand */}
-          <div className="md:col-span-2">
-            <a href="#home" className="flex items-center gap-2 mb-4">
-              <div className="w-10 h-10 rounded-md bg-gradient-to-br from-accent-blue to-accent-purple flex items-center justify-center">
-                <span className="font-display font-extrabold text-sm text-white tracking-tight">M.</span>
-              </div>
-              <span className="font-display font-bold text-xl">
-                Metro<span className="gradient-text">DEVOPS</span>
-              </span>
-            </a>
-            <p className="text-gray-400 mb-6 max-w-md">
-              Technology that moves African businesses forward. We build digital foundations and practical business systems for long-term growth.
-            </p>
-            <div className="flex gap-4">
-              {[
-                { Icon: Instagram, label: 'Instagram', href: 'https://instagram.com/m6tr_0' },
-                { Icon: Github, label: 'GitHub', href: 'https://github.com/DaveAust1n' },
-                { Icon: Music, label: 'TikTok', href: 'https://tiktok.com/@metrothedeveloper' },
-              ].map(({ Icon, label, href }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="w-10 h-10 rounded-lg bg-dark-700 flex items-center justify-center hover:bg-gradient-to-br hover:from-accent-blue hover:to-accent-purple transition-all duration-300 group"
-                >
-                  <Icon className="w-4 h-4 text-gray-400 group-hover:text-white transition-colors" />
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* Quick Links */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link}>
-                  <a
-                    href={`#${link.toLowerCase()}`}
-                    className="text-gray-400 hover:text-white transition-colors text-sm"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Services */}
-          <div>
-            <h4 className="font-semibold text-white mb-4">Services</h4>
-            <ul className="space-y-2">
-              {['Business Websites', 'Business Email & Domains', 'Automation & Integrations', 'AI Agents & Chatbots'].map((service) => (
-                <li key={service}>
-                  <a
-                    href="#services"
-                    className="text-gray-400 hover:text-white transition-colors text-sm"
-                  >
-                    {service}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-gray-400 text-sm">
-            &copy; {new Date().getFullYear()} MetroDEVOPS. All rights reserved.
-          </p>
-          <p className="text-gray-500 text-xs">
-            Built with passion for the web
-          </p>
-        </div>
-      </div>
-    </footer>
-  );
+  return <footer className="site-footer"><div className="section-shell footer-main"><div className="footer-brand"><Brand light /><p>Helping African businesses build useful digital foundations and grow into technology.</p></div><div className="footer-links"><span>EXPLORE</span><a href="#approach">Our approach</a><a href="#services">Services</a><a href="#work">Selected work</a></div><div className="footer-links"><span>CONNECT</span><a href="https://instagram.com/m6tr_0" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={13} /></a><a href="https://tiktok.com/@metrothedeveloper" target="_blank" rel="noreferrer">TikTok <ArrowUpRight size={13} /></a><a href="https://github.com/DaveAust1n" target="_blank" rel="noreferrer">GitHub <ArrowUpRight size={13} /></a></div><div className="footer-links"><span>METRODEVOPS HUB</span><a href={HUB} target="_blank" rel="noreferrer">Open the Hub <ArrowUpRight size={13} /></a><a href={`${HUB}/templates`} target="_blank" rel="noreferrer">Browse templates <ArrowUpRight size={13} /></a></div></div><div className="section-shell footer-bottom"><span>© {new Date().getFullYear()} MetroDEVOPS. Built with purpose.</span><a href="#home">Back to top ↑</a></div></footer>;
 }
 
-// Scroll to Top Button
-function ScrollToTop() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const toggleVisible = () => setVisible(window.scrollY > 500);
-    window.addEventListener('scroll', toggleVisible);
-    return () => window.removeEventListener('scroll', toggleVisible);
-  }, []);
-
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-  if (!visible) return null;
-
-  return (
-    <button
-      onClick={scrollToTop}
-      className="fixed bottom-8 right-8 z-50 w-12 h-12 rounded-full bg-[#17483B] text-[#F1EDE2] flex items-center justify-center shadow-md shadow-[#17483B]/20 hover:bg-[#252D29] hover:scale-110 transition-all"
-      aria-label="Scroll to top"
-    >
-      <ArrowUp className="w-5 h-5 text-white" />
-    </button>
-  );
-}
-
-// Main App
-function App() {
+export default function App() {
   useEffect(() => {
     installVisualEditorBridge();
     let active = true;
-    loadWebsiteContent()
-      .then(({ content }) => {
-        if (!active || !content?.social_links?._visualEdits) return;
-        try {
-          applySavedVisualEdits(JSON.parse(content.social_links._visualEdits) as VisualEdit[]);
-        } catch (error) {
-          console.warn('Saved visual website edits could not be applied:', error);
-        }
-      })
-      .catch((error: unknown) => console.warn('Saved visual website edits are unavailable:', error));
+    import('./lib/websiteContent').then(({ loadWebsiteContent }) => loadWebsiteContent()).then(({ content }) => {
+      if (!active || !content?.social_links?._visualEdits) return;
+      try { applySavedVisualEdits(JSON.parse(content.social_links._visualEdits) as VisualEdit[]); }
+      catch (error) { console.warn('Saved visual website edits could not be applied:', error); }
+    }).catch((error: unknown) => console.info('Hub content connection is not available; using site defaults.', error));
     return () => { active = false; };
   }, []);
 
-  return (
-    <>
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Services />
-        <Projects />
-        <WhyChooseUs />
-        <Process />
-        <WhatToExpect />
-        <Technologies />
-        <Contact />
-      </main>
-      <Footer />
-      <ScrollToTop />
-    </>
-  );
+  return <><Header /><main><Hero /><Approach /><Services /><Work /><Process /><Contact /></main><Footer /></>;
 }
-
-export default App;
