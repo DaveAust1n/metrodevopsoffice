@@ -1,0 +1,793 @@
+{
+  "adapter": "metrodevops-html-v1",
+  "source": {
+    "repository": "DaveAust1n/metrodevopsoffice",
+    "commit": "77693740cd7588fd1f406dfbe6f388af66c92319"
+  },
+  "fields": [
+    {
+      "id": "field-000",
+      "node": "node-1",
+      "index": 0,
+      "area": "header",
+      "label": "Metro"
+    },
+    {
+      "id": "field-001",
+      "node": "node-2",
+      "index": 0,
+      "area": "header",
+      "label": "DEVOPS"
+    },
+    {
+      "id": "field-002",
+      "node": "node-3",
+      "index": 0,
+      "area": "header",
+      "label": "Approach"
+    },
+    {
+      "id": "field-003",
+      "node": "node-4",
+      "index": 0,
+      "area": "header",
+      "label": "Services"
+    },
+    {
+      "id": "field-004",
+      "node": "node-5",
+      "index": 0,
+      "area": "header",
+      "label": "Work"
+    },
+    {
+      "id": "field-005",
+      "node": "node-6",
+      "index": 0,
+      "area": "header",
+      "label": "Contact"
+    },
+    {
+      "id": "field-006",
+      "node": "node-7",
+      "index": 0,
+      "area": "header",
+      "label": "Start a project"
+    },
+    {
+      "id": "field-007",
+      "node": "node-8",
+      "index": 0,
+      "area": "header",
+      "label": "Start a project"
+    },
+    {
+      "id": "field-008",
+      "node": "node-9",
+      "index": 1,
+      "area": "home",
+      "label": "DIGITAL INFRASTRUCTURE FOR AFRICAN BUSINESS"
+    },
+    {
+      "id": "field-009",
+      "node": "node-10",
+      "index": 0,
+      "area": "home",
+      "label": "Build your digital presence."
+    },
+    {
+      "id": "field-010",
+      "node": "node-11",
+      "index": 0,
+      "area": "home",
+      "label": "Keep control of it."
+    },
+    {
+      "id": "field-011",
+      "node": "node-12",
+      "index": 0,
+      "area": "home",
+      "label": "We build websites and business systems that do more than look goo"
+    },
+    {
+      "id": "field-012",
+      "node": "node-13",
+      "index": 0,
+      "area": "home",
+      "label": "Let's build something"
+    },
+    {
+      "id": "field-013",
+      "node": "node-14",
+      "index": 0,
+      "area": "home",
+      "label": "Explore our work"
+    },
+    {
+      "id": "field-014",
+      "node": "node-15",
+      "index": 0,
+      "area": "home",
+      "label": "WE BUILD FOR THE LONG TERM"
+    },
+    {
+      "id": "field-015",
+      "node": "node-16",
+      "index": 0,
+      "area": "home",
+      "label": "See how we work"
+    },
+    {
+      "id": "field-016",
+      "node": "node-17",
+      "index": 0,
+      "area": "approach",
+      "label": "A better way to build"
+    },
+    {
+      "id": "field-017",
+      "node": "node-18",
+      "index": 0,
+      "area": "approach",
+      "label": "A website should be a tool you"
+    },
+    {
+      "id": "field-018",
+      "node": "node-18",
+      "index": 2,
+      "area": "approach",
+      "label": "— not a problem you inherit."
+    },
+    {
+      "id": "field-019",
+      "node": "node-20",
+      "index": 0,
+      "area": "approach",
+      "label": "own"
+    },
+    {
+      "id": "field-020",
+      "node": "node-21",
+      "index": 0,
+      "area": "approach",
+      "label": "Our approach is built around a simple idea: business owners shoul"
+    },
+    {
+      "id": "field-021",
+      "node": "node-22",
+      "index": 0,
+      "area": "approach",
+      "label": "01"
+    },
+    {
+      "id": "field-022",
+      "node": "node-23",
+      "index": 0,
+      "area": "approach",
+      "label": "Start with a strong foundation"
+    },
+    {
+      "id": "field-023",
+      "node": "node-24",
+      "index": 0,
+      "area": "approach",
+      "label": "We build on reusable, responsive components instead of treating e"
+    },
+    {
+      "id": "field-024",
+      "node": "node-25",
+      "index": 0,
+      "area": "approach",
+      "label": "02"
+    },
+    {
+      "id": "field-025",
+      "node": "node-26",
+      "index": 0,
+      "area": "approach",
+      "label": "Make everyday edits simple"
+    },
+    {
+      "id": "field-026",
+      "node": "node-27",
+      "index": 0,
+      "area": "approach",
+      "label": "The goal is for owners to update text, images, services and produ"
+    },
+    {
+      "id": "field-027",
+      "node": "node-28",
+      "index": 0,
+      "area": "approach",
+      "label": "03"
+    },
+    {
+      "id": "field-028",
+      "node": "node-29",
+      "index": 0,
+      "area": "approach",
+      "label": "Publish with confidence"
+    },
+    {
+      "id": "field-029",
+      "node": "node-30",
+      "index": 0,
+      "area": "approach",
+      "label": "Drafts, previews and published content should be distinct, so cha"
+    },
+    {
+      "id": "field-030",
+      "node": "node-31",
+      "index": 0,
+      "area": "approach",
+      "label": "One shared architecture. Different kinds of business."
+    },
+    {
+      "id": "field-031",
+      "node": "node-32",
+      "index": 0,
+      "area": "approach",
+      "label": "Reusable page sections, structured content and a consistent editi"
+    },
+    {
+      "id": "field-032",
+      "node": "node-33",
+      "index": 0,
+      "area": "approach",
+      "label": "Explore the Hub"
+    },
+    {
+      "id": "field-033",
+      "node": "node-34",
+      "index": 0,
+      "area": "services",
+      "label": "What we do"
+    },
+    {
+      "id": "field-034",
+      "node": "node-35",
+      "index": 0,
+      "area": "services",
+      "label": "Technology that"
+    },
+    {
+      "id": "field-035",
+      "node": "node-36",
+      "index": 0,
+      "area": "services",
+      "label": "moves work forward."
+    },
+    {
+      "id": "field-036",
+      "node": "node-37",
+      "index": 0,
+      "area": "services",
+      "label": "Start with the challenge in front of you. We’ll help you choose t"
+    },
+    {
+      "id": "field-037",
+      "node": "node-38",
+      "index": 0,
+      "area": "services",
+      "label": "01"
+    },
+    {
+      "id": "field-038",
+      "node": "node-39",
+      "index": 0,
+      "area": "services",
+      "label": "Digital foundations"
+    },
+    {
+      "id": "field-039",
+      "node": "node-40",
+      "index": 0,
+      "area": "services",
+      "label": "A clear, credible online home for your business — built to work o"
+    },
+    {
+      "id": "field-040",
+      "node": "node-41",
+      "index": 0,
+      "area": "services",
+      "label": "02"
+    },
+    {
+      "id": "field-041",
+      "node": "node-42",
+      "index": 0,
+      "area": "services",
+      "label": "Business systems"
+    },
+    {
+      "id": "field-042",
+      "node": "node-43",
+      "index": 0,
+      "area": "services",
+      "label": "Useful software that fits how your business actually operates — n"
+    },
+    {
+      "id": "field-043",
+      "node": "node-44",
+      "index": 0,
+      "area": "services",
+      "label": "03"
+    },
+    {
+      "id": "field-044",
+      "node": "node-45",
+      "index": 0,
+      "area": "services",
+      "label": "Practical AI"
+    },
+    {
+      "id": "field-045",
+      "node": "node-46",
+      "index": 0,
+      "area": "services",
+      "label": "Apply AI where it saves time, improves support or helps a team ha"
+    },
+    {
+      "id": "field-046",
+      "node": "node-47",
+      "index": 0,
+      "area": "work",
+      "label": "Selected work & experiments"
+    },
+    {
+      "id": "field-047",
+      "node": "node-48",
+      "index": 0,
+      "area": "work",
+      "label": "Ideas made"
+    },
+    {
+      "id": "field-048",
+      "node": "node-49",
+      "index": 0,
+      "area": "work",
+      "label": "useful."
+    },
+    {
+      "id": "field-049",
+      "node": "node-50",
+      "index": 0,
+      "area": "work",
+      "label": "We explore practical digital experiences — from product-led websi"
+    },
+    {
+      "id": "field-050",
+      "node": "node-51",
+      "index": 0,
+      "area": "work",
+      "label": "01 / 03"
+    },
+    {
+      "id": "field-051",
+      "node": "node-52",
+      "index": 0,
+      "area": "work",
+      "label": "AP"
+    },
+    {
+      "id": "field-052",
+      "node": "node-53",
+      "index": 0,
+      "area": "work",
+      "label": "Commerce"
+    },
+    {
+      "id": "field-053",
+      "node": "node-54",
+      "index": 0,
+      "area": "work",
+      "label": "Commerce · Website systems"
+    },
+    {
+      "id": "field-054",
+      "node": "node-55",
+      "index": 0,
+      "area": "work",
+      "label": "August Products"
+    },
+    {
+      "id": "field-055",
+      "node": "node-56",
+      "index": 0,
+      "area": "work",
+      "label": "A product-led online presence built to help customers explore a c"
+    },
+    {
+      "id": "field-056",
+      "node": "node-57",
+      "index": 0,
+      "area": "work",
+      "label": "Explore project"
+    },
+    {
+      "id": "field-057",
+      "node": "node-58",
+      "index": 0,
+      "area": "work",
+      "label": "02 / 03"
+    },
+    {
+      "id": "field-058",
+      "node": "node-59",
+      "index": 0,
+      "area": "work",
+      "label": "WT"
+    },
+    {
+      "id": "field-059",
+      "node": "node-60",
+      "index": 0,
+      "area": "work",
+      "label": "Operations"
+    },
+    {
+      "id": "field-060",
+      "node": "node-61",
+      "index": 0,
+      "area": "work",
+      "label": "Operations · Product concept"
+    },
+    {
+      "id": "field-061",
+      "node": "node-62",
+      "index": 0,
+      "area": "work",
+      "label": "WareTrack"
+    },
+    {
+      "id": "field-062",
+      "node": "node-63",
+      "index": 0,
+      "area": "work",
+      "label": "A spatial warehouse concept focused on zones, inventory movement "
+    },
+    {
+      "id": "field-063",
+      "node": "node-64",
+      "index": 0,
+      "area": "work",
+      "label": "Explore project"
+    },
+    {
+      "id": "field-064",
+      "node": "node-65",
+      "index": 0,
+      "area": "work",
+      "label": "03 / 03"
+    },
+    {
+      "id": "field-065",
+      "node": "node-66",
+      "index": 0,
+      "area": "work",
+      "label": "SP"
+    },
+    {
+      "id": "field-066",
+      "node": "node-67",
+      "index": 0,
+      "area": "work",
+      "label": "Web product"
+    },
+    {
+      "id": "field-067",
+      "node": "node-68",
+      "index": 0,
+      "area": "work",
+      "label": "Digital tools · Web application"
+    },
+    {
+      "id": "field-068",
+      "node": "node-69",
+      "index": 0,
+      "area": "work",
+      "label": "SetupPlug"
+    },
+    {
+      "id": "field-069",
+      "node": "node-70",
+      "index": 0,
+      "area": "work",
+      "label": "A focused web product exploring how practical digital tools can m"
+    },
+    {
+      "id": "field-070",
+      "node": "node-71",
+      "index": 0,
+      "area": "work",
+      "label": "Explore project"
+    },
+    {
+      "id": "field-071",
+      "node": "node-72",
+      "index": 0,
+      "area": "work",
+      "label": "A mix of shipped work and product explorations. Scope and capabil"
+    },
+    {
+      "id": "field-072",
+      "node": "node-73",
+      "index": 0,
+      "area": "process-section",
+      "label": "How we work"
+    },
+    {
+      "id": "field-073",
+      "node": "node-74",
+      "index": 0,
+      "area": "process-section",
+      "label": "Clear steps."
+    },
+    {
+      "id": "field-074",
+      "node": "node-75",
+      "index": 0,
+      "area": "process-section",
+      "label": "Useful outcomes."
+    },
+    {
+      "id": "field-075",
+      "node": "node-76",
+      "index": 0,
+      "area": "process-section",
+      "label": "No mystery process. You know what we’re building, why it matters "
+    },
+    {
+      "id": "field-076",
+      "node": "node-77",
+      "index": 0,
+      "area": "process-section",
+      "label": "01"
+    },
+    {
+      "id": "field-077",
+      "node": "node-78",
+      "index": 0,
+      "area": "process-section",
+      "label": "Listen"
+    },
+    {
+      "id": "field-078",
+      "node": "node-79",
+      "index": 0,
+      "area": "process-section",
+      "label": "Understand the business, the customer and the actual problem to s"
+    },
+    {
+      "id": "field-079",
+      "node": "node-80",
+      "index": 0,
+      "area": "process-section",
+      "label": "02"
+    },
+    {
+      "id": "field-080",
+      "node": "node-81",
+      "index": 0,
+      "area": "process-section",
+      "label": "Shape"
+    },
+    {
+      "id": "field-081",
+      "node": "node-82",
+      "index": 0,
+      "area": "process-section",
+      "label": "Agree the right scope, structure and priorities before building."
+    },
+    {
+      "id": "field-082",
+      "node": "node-83",
+      "index": 0,
+      "area": "process-section",
+      "label": "03"
+    },
+    {
+      "id": "field-083",
+      "node": "node-84",
+      "index": 0,
+      "area": "process-section",
+      "label": "Build"
+    },
+    {
+      "id": "field-084",
+      "node": "node-85",
+      "index": 0,
+      "area": "process-section",
+      "label": "Create, test and refine a responsive solution around those priori"
+    },
+    {
+      "id": "field-085",
+      "node": "node-86",
+      "index": 0,
+      "area": "process-section",
+      "label": "04"
+    },
+    {
+      "id": "field-086",
+      "node": "node-87",
+      "index": 0,
+      "area": "process-section",
+      "label": "Hand over & improve"
+    },
+    {
+      "id": "field-087",
+      "node": "node-88",
+      "index": 0,
+      "area": "process-section",
+      "label": "Explain how to use it, then keep improving where ongoing support "
+    },
+    {
+      "id": "field-088",
+      "node": "node-89",
+      "index": 0,
+      "area": "contact",
+      "label": "Your next step starts here"
+    },
+    {
+      "id": "field-089",
+      "node": "node-90",
+      "index": 0,
+      "area": "contact",
+      "label": "Let's build something"
+    },
+    {
+      "id": "field-090",
+      "node": "node-91",
+      "index": 0,
+      "area": "contact",
+      "label": "your business can grow with."
+    },
+    {
+      "id": "field-091",
+      "node": "node-92",
+      "index": 0,
+      "area": "contact",
+      "label": "Tell us what you’re trying to improve. We’ll talk through the bes"
+    },
+    {
+      "id": "field-092",
+      "node": "node-93",
+      "index": 0,
+      "area": "contact",
+      "label": "Talk to MetroDEVOPS"
+    },
+    {
+      "id": "field-093",
+      "node": "node-94",
+      "index": 0,
+      "area": "contact",
+      "label": "Prefer social? Message us on Instagram"
+    },
+    {
+      "id": "field-094",
+      "node": "node-95",
+      "index": 0,
+      "area": "footer",
+      "label": "Metro"
+    },
+    {
+      "id": "field-095",
+      "node": "node-96",
+      "index": 0,
+      "area": "footer",
+      "label": "DEVOPS"
+    },
+    {
+      "id": "field-096",
+      "node": "node-97",
+      "index": 0,
+      "area": "footer",
+      "label": "Helping African businesses build useful digital foundations and g"
+    },
+    {
+      "id": "field-097",
+      "node": "node-98",
+      "index": 0,
+      "area": "footer",
+      "label": "EXPLORE"
+    },
+    {
+      "id": "field-098",
+      "node": "node-99",
+      "index": 0,
+      "area": "footer",
+      "label": "Our approach"
+    },
+    {
+      "id": "field-099",
+      "node": "node-100",
+      "index": 0,
+      "area": "footer",
+      "label": "Services"
+    },
+    {
+      "id": "field-100",
+      "node": "node-101",
+      "index": 0,
+      "area": "footer",
+      "label": "Selected work"
+    },
+    {
+      "id": "field-101",
+      "node": "node-102",
+      "index": 0,
+      "area": "footer",
+      "label": "CONNECT"
+    },
+    {
+      "id": "field-102",
+      "node": "node-103",
+      "index": 0,
+      "area": "footer",
+      "label": "Instagram"
+    },
+    {
+      "id": "field-103",
+      "node": "node-104",
+      "index": 0,
+      "area": "footer",
+      "label": "TikTok"
+    },
+    {
+      "id": "field-104",
+      "node": "node-105",
+      "index": 0,
+      "area": "footer",
+      "label": "GitHub"
+    },
+    {
+      "id": "field-105",
+      "node": "node-106",
+      "index": 0,
+      "area": "footer",
+      "label": "METRODEVOPS HUB"
+    },
+    {
+      "id": "field-106",
+      "node": "node-107",
+      "index": 0,
+      "area": "footer",
+      "label": "Open the Hub"
+    },
+    {
+      "id": "field-107",
+      "node": "node-108",
+      "index": 0,
+      "area": "footer",
+      "label": "Browse templates"
+    },
+    {
+      "id": "field-108",
+      "node": "node-109",
+      "index": 0,
+      "area": "footer",
+      "label": "© 2026 MetroDEVOPS. Built with purpose."
+    },
+    {
+      "id": "field-109",
+      "node": "node-110",
+      "index": 0,
+      "area": "footer",
+      "label": "Back to top ↑"
+    }
+  ],
+  "groups": [
+    {
+      "id": "group-0",
+      "label": "Digital foundations"
+    },
+    {
+      "id": "group-1",
+      "label": "Business systems"
+    },
+    {
+      "id": "group-2",
+      "label": "Practical AI"
+    }
+  ]
+}
