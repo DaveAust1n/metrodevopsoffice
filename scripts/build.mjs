@@ -1,0 +1,11 @@
+import {mkdir,copyFile,cp,readFile,writeFile} from 'node:fs/promises';
+const {websiteSlug}=JSON.parse(await readFile('portfolio.config.json','utf8'));
+if(websiteSlug&&!/^[a-z0-9-]{1,160}$/.test(websiteSlug))throw Error('Invalid connected website slug');
+await mkdir('dist',{recursive:true});
+let html=await readFile('index.html','utf8');
+html=html.replace('noindex,nofollow','index,follow').replaceAll('https://metrodevopsoffice.vercel.app/','https://metrodevops.vercel.app/');
+if(websiteSlug)html=html.replace('<body>','<body data-hub-site="'+websiteSlug+'">');
+await writeFile('dist/index.html',html);
+for(const path of ['styles.css','portfolio.js','manifest.json','seed.json'])await copyFile(path,'dist/'+path);
+await cp('public','dist',{recursive:true});
+console.log('Built plain HTML/CSS/JavaScript portfolio. Hub content:',websiteSlug?'connected':'not configured; original public defaults');
