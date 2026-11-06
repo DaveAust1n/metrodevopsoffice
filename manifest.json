@@ -360,7 +360,7 @@
       "node": "node-51",
       "index": 0,
       "area": "work",
-      "label": "01 / 03"
+      "label": "01 / 04"
     },
     {
       "id": "field-051",
@@ -409,42 +409,42 @@
       "node": "node-58",
       "index": 0,
       "area": "work",
-      "label": "02 / 03"
+      "label": "02 / 04"
     },
     {
       "id": "field-058",
       "node": "node-59",
       "index": 0,
       "area": "work",
-      "label": "WT"
+      "label": "MZ"
     },
     {
       "id": "field-059",
       "node": "node-60",
       "index": 0,
       "area": "work",
-      "label": "Operations"
+      "label": "Business services"
     },
     {
       "id": "field-060",
       "node": "node-61",
       "index": 0,
       "area": "work",
-      "label": "Operations · Product concept"
+      "label": "Business services · Company website"
     },
     {
       "id": "field-061",
       "node": "node-62",
       "index": 0,
       "area": "work",
-      "label": "WareTrack"
+      "label": "Mobzenox"
     },
     {
       "id": "field-062",
       "node": "node-63",
       "index": 0,
       "area": "work",
-      "label": "A spatial warehouse concept focused on zones, inventory movement "
+      "label": "A business website presenting consulting, property and project ser"
     },
     {
       "id": "field-063",
@@ -458,56 +458,56 @@
       "node": "node-65",
       "index": 0,
       "area": "work",
-      "label": "03 / 03"
+      "label": "03 / 04"
     },
     {
       "id": "field-065",
       "node": "node-66",
       "index": 0,
       "area": "work",
-      "label": "SP"
+      "label": "GA"
     },
     {
       "id": "field-066",
       "node": "node-67",
       "index": 0,
       "area": "work",
-      "label": "Web product"
+      "label": "Auto parts"
     },
     {
       "id": "field-067",
       "node": "node-68",
       "index": 0,
       "area": "work",
-      "label": "Digital tools · Web application"
+      "label": "Automotive · Catalogue website"
     },
     {
       "id": "field-068",
       "node": "node-69",
       "index": 0,
       "area": "work",
-      "label": "SetupPlug"
+      "label": "Genesis Autos"
     },
     {
       "id": "field-069",
       "node": "node-70",
       "index": 0,
       "area": "work",
-      "label": "A focused web product exploring how practical digital tools can m"
+      "label": "An auto-parts website organized around spare-parts categories, pro"
     },
     {
       "id": "field-070",
       "node": "node-71",
       "index": 0,
       "area": "work",
-      "label": "Explore project"
+      "label": "Ask about this project"
     },
     {
       "id": "field-071",
       "node": "node-72",
       "index": 0,
       "area": "work",
-      "label": "A mix of shipped work and product explorations. Scope and capabil"
+      "label": "Selected websites for businesses across commerce, services, automo"
     },
     {
       "id": "field-072",
@@ -774,6 +774,55 @@
       "index": 0,
       "area": "footer",
       "label": "Back to top ↑"
+    },
+    {
+      "id": "field-110",
+      "node": "node-111",
+      "index": 0,
+      "area": "work",
+      "label": "04 / 04"
+    },
+    {
+      "id": "field-111",
+      "node": "node-112",
+      "index": 0,
+      "area": "work",
+      "label": "GF"
+    },
+    {
+      "id": "field-112",
+      "node": "node-113",
+      "index": 0,
+      "area": "work",
+      "label": "Interiors"
+    },
+    {
+      "id": "field-113",
+      "node": "node-114",
+      "index": 0,
+      "area": "work",
+      "label": "Furniture & interiors · Portfolio website"
+    },
+    {
+      "id": "field-114",
+      "node": "node-115",
+      "index": 0,
+      "area": "work",
+      "label": "Gabs Furniture & Interiors"
+    },
+    {
+      "id": "field-115",
+      "node": "node-116",
+      "index": 0,
+      "area": "work",
+      "label": "A furniture and interiors website showcasing projects, product cat"
+    },
+    {
+      "id": "field-116",
+      "node": "node-117",
+      "index": 0,
+      "area": "work",
+      "label": "Explore project"
     }
   ],
   "groups": [

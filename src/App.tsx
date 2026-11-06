@@ -61,22 +61,31 @@ const projects = [
     tone: 'project-blue',
   },
   {
-    label: 'Operations · Product concept',
-    name: 'WareTrack',
-    description: 'A spatial warehouse concept focused on zones, inventory movement and operational visibility.',
-    url: 'https://github.com/DaveAust1n/new-work',
-    tag: 'Operations',
-    mark: 'WT',
+    label: 'Business services · Company website',
+    name: 'Mobzenox',
+    description: 'A business website presenting consulting, property and project services, with clear contact and enquiry options.',
+    url: 'https://mobzenox.com',
+    tag: 'Business services',
+    mark: 'MZ',
     tone: 'project-green',
   },
   {
-    label: 'Digital tools · Web application',
-    name: 'SetupPlug',
-    description: 'A focused web product exploring how practical digital tools can make setup and workflows simpler.',
-    url: 'https://setupplug.vercel.app',
-    tag: 'Web product',
-    mark: 'SP',
+    label: 'Automotive · Catalogue website',
+    name: 'Genesis Autos',
+    description: 'An auto-parts website organized around spare-parts categories, product browsing and WhatsApp enquiries.',
+    url: '#contact',
+    tag: 'Auto parts',
+    mark: 'GA',
     tone: 'project-clay',
+  },
+  {
+    label: 'Furniture & interiors · Portfolio website',
+    name: 'Gabs Furniture & Interiors',
+    description: 'A furniture and interiors website showcasing projects, product categories and WhatsApp enquiries.',
+    url: 'https://gabsinteriors.com.ng',
+    tag: 'Interiors',
+    mark: 'GF',
+    tone: 'project-blue',
   },
 ];
 
@@ -238,7 +247,7 @@ function Work() {
         <div className="section-heading section-heading-row"><div><p className="section-kicker">Selected work & experiments</p><h2>Ideas made <span>useful.</span></h2></div><p>We explore practical digital experiences — from product-led websites to tools that help businesses organize their operations.</p></div>
         <div className="project-grid">
           {projects.map((project, index) => <a className="project-card" href={project.url} target="_blank" rel="noreferrer" key={project.name}>
-            <div className={`project-art ${project.tone}`}><div className="project-art-grid" /><span className="project-index">0{index + 1} / 03</span><span className="project-monogram">{project.mark}</span><span className="project-open"><ArrowUpRight size={18} /></span><span className="project-art-label">{project.tag}</span></div>
+            <div className={`project-art ${project.tone}`}><div className="project-art-grid" /><span className="project-index">0{index + 1} / 04</span><span className="project-monogram">{project.mark}</span><span className="project-open"><ArrowUpRight size={18} /></span><span className="project-art-label">{project.tag}</span></div>
             <div className="project-copy"><span className="project-label">{project.label}</span><h3>{project.name}</h3><p>{project.description}</p><span className="project-link">Explore project <MoveRight size={15} /></span></div>
           </a>)}
         </div>
