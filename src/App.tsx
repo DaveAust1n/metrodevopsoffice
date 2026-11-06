@@ -73,7 +73,7 @@ const projects = [
     label: 'Automotive · Catalogue website',
     name: 'Genesis Autos',
     description: 'An auto-parts website organized around spare-parts categories, product browsing and WhatsApp enquiries.',
-    url: '#contact',
+    url: 'https://genesisautos.org',
     tag: 'Auto parts',
     mark: 'GA',
     tone: 'project-clay',
