@@ -9,7 +9,11 @@ test('built portfolio is complete static HTML with original contact and verifica
  assert.match(html,/wa.me\/2349163197774/);assert.doesNotMatch(html,/WareTrack|SetupPlug/);
  assert.equal((html.match(/class="project-card"/g)||[]).length,4);
  for (const name of ['August Products','Mobzenox','Genesis Autos','Gabs Furniture &amp; Interiors']) assert.ok(html.includes(name));
- assert.match(html,/index,follow/);assert.match(html,/https:\/\/metrodevops.vercel.app\//);
+ assert.match(html,/index,follow/);
+ const canonical='https://www.metrodevops.com.ng/';
+ assert.ok(html.includes('<link rel="canonical" href="'+canonical+'">'));
+ assert.ok((await readFile('dist/sitemap.xml','utf8')).includes('<loc>'+canonical+'</loc>'));
+ assert.ok((await readFile('dist/robots.txt','utf8')).includes('Sitemap: '+canonical+'sitemap.xml'));
  assert.match(await readFile('dist/google4c96045a9eeb1116.html','utf8'),/google-site-verification/);
 });
 
